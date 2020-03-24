@@ -2,12 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Text>I just wanna test you out :D</Text>
-    </View>
-  );
+   return RecipeItem();
 }
 
 const styles = StyleSheet.create({
@@ -18,3 +13,12 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+const RecipeItem = () => {
+  return (
+  <View>
+    <Text>Apfelstrudel</Text>
+    <Text>30 Minutes</Text>
+  </View>
+);
+}
