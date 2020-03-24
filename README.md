@@ -1,6 +1,6 @@
-# react-cookbook 🥗🥘🧁
+# react-native-cookbook 🥗🥘🧁
 
-install expo cli `npm install -g expo-cli` to creat template quickly
+`npm install` or `yarn add` to add all dependencies first
 
 install Xcode via AppStore to use simulator
 
