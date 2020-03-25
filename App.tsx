@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import RecipeItem from "./components/RecipeItem";
 
 export default function App() {
-   return RecipeItem();
+   return <RecipeItem/>;
 }
 
 const styles = StyleSheet.create({
@@ -14,11 +15,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const RecipeItem = () => {
-  return (
-  <View>
-    <Text>Apfelstrudel</Text>
-    <Text>30 Minutes</Text>
-  </View>
-);
-}
+
