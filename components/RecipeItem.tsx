@@ -6,8 +6,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    borderColor: "#000",
-    borderWidth: 1,
+    borderBottomColor: "#000",
+    marginBottom: 2,
+    borderBottomWidth: 1,
     height: 60,
     width: "100%"
   },
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   textContainer: { margin: 10 }
 });
 
-export default function RecipeItem() {
+export default function RecipeItem(props) {
   return (
     <View style={styles.wrapper}>
       <Image
@@ -23,8 +24,8 @@ export default function RecipeItem() {
         style={styles.img}
       />
       <View>
-        <Text>Apfelstrudel</Text>
-        <Text>30 Minutes</Text>
+        <Text>{props.name}</Text>
+        <Text>{props.minutes} min</Text>
       </View>
     </View>
   );

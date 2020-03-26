@@ -32,7 +32,7 @@
         ]
     },
     {
-        "name" : "Sushi",
+        "name" : "Maki",
         "minutes" : 60,
         "ingredients" : [
             "rice",
@@ -44,7 +44,7 @@
         ]
     },
     {
-        "name" : "Sushi",
+        "name" : "Sashimi",
         "minutes" : 60,
         "ingredients" : [
             "rice",
