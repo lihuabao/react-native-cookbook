@@ -1,0 +1,58 @@
+{
+    "recipes":[{
+        "name" : "Apfelstrudel",
+        "minutes" : 30,
+        "ingredients" : [
+            "apples",
+            "flour",
+            "sugar",
+            "cinammon"
+        ]
+    },
+    {
+        "name" : "Pizza",
+        "minutes" : 45,
+        "ingredients" : [
+            "tomatoes",
+            "flour",
+            "water",
+            "mozarella buffala"
+        ]
+    },
+    {
+        "name" : "Sushi",
+        "minutes" : 60,
+        "ingredients" : [
+            "rice",
+            "soy sauce",
+            "seaweed",
+            "avocado",
+            "salmon",
+            "sesame seeds"
+        ]
+    },
+    {
+        "name" : "Sushi",
+        "minutes" : 60,
+        "ingredients" : [
+            "rice",
+            "soy sauce",
+            "seaweed",
+            "avocado",
+            "salmon",
+            "sesame seeds"
+        ]
+    },
+    {
+        "name" : "Sushi",
+        "minutes" : 60,
+        "ingredients" : [
+            "rice",
+            "soy sauce",
+            "seaweed",
+            "avocado",
+            "salmon",
+            "sesame seeds"
+        ]
+    }]
+}
