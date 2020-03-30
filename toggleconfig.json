@@ -1,0 +1,12 @@
+{
+  "components": [
+    {
+      "name": "RecipeList",
+      "shouldAppear": true
+    },
+    {
+      "name": "RecipeItem",
+      "shouldAppear": true
+    }
+  ]
+}
