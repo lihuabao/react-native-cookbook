@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, Button } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -18,15 +21,17 @@ const styles = StyleSheet.create({
 
 export default function RecipeItem(props) {
   return (
-    <View style={styles.wrapper}>
-      <Image
-        source={require("../assets/pizzaPepperoni.jpg")}
-        style={styles.img}
-      />
-      <View>
-        <Text>{props.name}</Text>
-        <Text>{props.minutes} min</Text>
+    <TouchableOpacity onPress={props.onPress}>
+      <View style={styles.wrapper}>
+        <Image
+          source={require("../assets/pizzaPepperoni.jpg")}
+          style={styles.img}
+        />
+        <View>
+          <Text>{props.name}</Text>
+          <Text>{props.minutes} min</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

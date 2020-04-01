@@ -1,24 +1,34 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import RecipeItem from "./RecipeItem";
-import recipeData from  "../recipeData.json"
+import recipeData from "../recipeData.json";
 
-export default function RecipeList() {
-    return (
-      <View style={styles.container}>
-        <h1>Recipe</h1>
-        {recipeData.recipes.map(recipe => ( <RecipeItem name= {recipe.name} minutes = {recipe.minutes} key ={recipe.name}/>))}
-      </View>
-    );
+export default function RecipeList(props) {
+  function goToDetailScreen() {
+    props.navigation.navigate("RecipeDetails");
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#aaa",
-      alignItems: "center",
-      justifyContent: "center",
-      marginVertical: 30
-    }
-  });
-  
+  return (
+    <View style={styles.container}>
+      <h1>Recipe</h1>
+      {recipeData.recipes.map(recipe => (
+        <RecipeItem
+          name={recipe.name}
+          minutes={recipe.minutes}
+          key={recipe.name}
+          onPress={goToDetailScreen}
+        />
+      ))}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#9af",
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 30
+  }
+});
