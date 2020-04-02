@@ -16,6 +16,7 @@ export default function RecipeList(props) {
           name={recipe.name}
           minutes={recipe.minutes}
           key={recipe.name}
+          title="Go to Detail Screen"
           onPress={goToDetailScreen}
         />
       ))}

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import RecipeList from "./components/RecipeList";
-import withFeaureToggle from "./withFeatureToggle";
+import withFeatureToggle from "./withFeatureToggle";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import RecipeDetails from "./components/RecipeDetails";
@@ -9,7 +9,7 @@ import RecipeDetails from "./components/RecipeDetails";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const FinalComponent = withFeaureToggle(RecipeList, "RecipeList");
+  const FinalComponent = withFeatureToggle(RecipeList, "RecipeList");
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
