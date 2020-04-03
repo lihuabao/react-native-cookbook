@@ -6,27 +6,30 @@ import RecipeItem from "./RecipeItem";
 const styles = StyleSheet.create({
   wrapper: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    borderBottomColor: "#000",
-    marginBottom: 2,
-    borderBottomWidth: 1,
-    width: "100%"
+    width: "100%",
+    height: "100%"
   },
   title:{
     marginTop: 5,
     marginBottom: 5,
     fontWeight: "bold"
   },
-  img: { flex: 1, width: undefined, height: undefined, margin: 15  },
-  textContainer: { margin: 10 },
+  img: { 
+    flex: 1, 
+    width:"100%",
+    height: 200,
+    marginBottom: 15  
+  },
   ingredients: {
 
   },
   paragraph: {
-    
-
+  },
+  content: {
+    flex: 2, margin: 15
   }
 });
 
@@ -39,13 +42,14 @@ export default function RecipeDetails(props) {
     <View style={styles.wrapper}>
       <Image
         style={styles.img}
-        source={require("../assets/pizzaPepperoni.jpg")}
+        source={require("../assets/sushiIMG.jpg")}
         resizeMode="contain" 
       />
-      <View>
+      <View style={styles.content}>
         <Text style={styles.title}>{recipe.name} ({recipe.minutes} min)</Text>
         <Text style={styles.title}>Ingredients:</Text>
         <Text style={styles.ingredients}>{recipe.ingredients.map(ingredient => (<Text key={ingredient}>{ingredient} {"\n"}</Text>))}</Text>
+        <Text style={styles.title}>Steps:</Text>
         <Text style={styles.paragraph} numberOfLines={5} >{recipe.steps}</Text>
       </View>
     </View>
