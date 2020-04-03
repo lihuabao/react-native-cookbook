@@ -9,7 +9,7 @@ export default function RecipeList(props) {
 
   return (
     <View style={styles.container}>
-      <h1>Recipe</h1>
+      <Text style={styles.text}>Recipe</ Text >
       {recipeData.recipes.map(recipe => (
         <RecipeItem
           name={recipe.name}
@@ -26,9 +26,11 @@ export default function RecipeList(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#9af",
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     marginVertical: 30
+  },
+  text: {
+      fontSize: 30,
+      padding: 10
   }
 });
