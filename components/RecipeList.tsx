@@ -4,9 +4,8 @@ import RecipeItem from "./RecipeItem";
 import recipeData from "../recipeData.json";
 
 export default function RecipeList(props) {
-  function goToDetailScreen() {
-    props.navigation.navigate("RecipeDetails");
-  }
+  
+
 
   return (
     <View style={styles.container}>
@@ -17,7 +16,7 @@ export default function RecipeList(props) {
           minutes={recipe.minutes}
           key={recipe.name}
           title="Go to Detail Screen"
-          onPress={goToDetailScreen}
+          onPress={() => {props.navigation.navigate("RecipeDetails", {recipe})}}
         />
       ))}
     </View>

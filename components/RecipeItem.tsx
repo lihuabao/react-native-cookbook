@@ -19,17 +19,17 @@ const styles = StyleSheet.create({
   textContainer: { margin: 10 }
 });
 
-export default function RecipeItem(props) {
+export default function RecipeItem(recipe) {
   return (
-    <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity onPress={recipe.onPress}>
       <View style={styles.wrapper}>
         <Image
           source={require("../assets/pizzaPepperoni.jpg")}
           style={styles.img}
         />
         <View>
-          <Text>{props.name}</Text>
-          <Text>{props.minutes} min</Text>
+          <Text>{recipe.name}</Text>
+          <Text>{recipe.minutes} min</Text>
         </View>
       </View>
     </TouchableOpacity>
