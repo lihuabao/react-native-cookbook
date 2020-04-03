@@ -12,9 +12,9 @@ export default function App() {
   const FinalComponent = withFeatureToggle(RecipeList, "RecipeList");
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={RecipeList} />
-        <Stack.Screen name="RecipeDetails" component={RecipeDetails} />
+      <Stack.Navigator initialRouteName="Recipes">
+        <Stack.Screen name="Recipes" component={RecipeList} />
+        <Stack.Screen name="Recipe Details" component={RecipeDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
