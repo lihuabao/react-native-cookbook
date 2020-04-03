@@ -48,7 +48,9 @@ export default function RecipeDetails(props) {
       <Image
         style={styles.img}
         source={require("../assets/sushiIMG.jpg")}
-        resizeMode="cover"/>
+        resizeMode="cover" 
+        accessibilityLabel="Sushi Image"
+      />
       <View style={styles.content}>
         <Text style={styles.headerTitle}>{recipe.name} ({recipe.minutes} min)</Text>
         <Text style={styles.title}>Ingredients:</Text>
