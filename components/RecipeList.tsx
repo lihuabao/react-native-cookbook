@@ -25,10 +25,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    //marginVertical: 30
-  },
-  text: {
-    fontSize: 30,
-    padding: 10
+    marginVertical: 30
   }
 });
