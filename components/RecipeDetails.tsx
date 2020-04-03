@@ -1,21 +1,15 @@
 import React, { Component } from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import RecipeItem from "./RecipeItem";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 const styles = StyleSheet.create({
   wrapper: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
     width: "100%",
-    height: "100%"
-  },
-  title:{
-    marginTop: 5,
-    marginBottom: 5,
-    fontWeight: "bold"
+    height: "100%",
   },
   img: { 
     flex: 1, 
@@ -23,14 +17,25 @@ const styles = StyleSheet.create({
     height: 200,
     marginBottom: 15  
   },
-  ingredients: {
-
-  },
-  paragraph: {
-  },
   content: {
-    flex: 2, margin: 15
-  }
+    flex: 2,
+    padding: 15
+  },
+  headerTitle:{
+    marginTop: 5,
+    marginBottom: 5,
+    fontWeight: "bold",
+    fontSize: 21
+  },
+  title:{
+    marginTop: 5,
+    marginBottom: 5,
+    fontWeight: "bold"
+    
+  },
+  ingredients: {
+    marginBottom: 15
+      }
 });
 
 export default function RecipeDetails(props) {
@@ -39,19 +44,18 @@ export default function RecipeDetails(props) {
   const recipe = route.params.recipe;
   
   return (
-    <View style={styles.wrapper}>
+    <ScrollView style={styles.wrapper}>
       <Image
         style={styles.img}
         source={require("../assets/sushiIMG.jpg")}
-        resizeMode="contain" 
-      />
+        resizeMode="cover"/>
       <View style={styles.content}>
-        <Text style={styles.title}>{recipe.name} ({recipe.minutes} min)</Text>
+        <Text style={styles.headerTitle}>{recipe.name} ({recipe.minutes} min)</Text>
         <Text style={styles.title}>Ingredients:</Text>
-        <Text style={styles.ingredients}>{recipe.ingredients.map(ingredient => (<Text key={ingredient}>{ingredient} {"\n"}</Text>))}</Text>
+        <Text style={styles.ingredients}>{recipe.ingredients.map(ingredient => (<Text key={ingredient}>{'\u2022' + " "}{ingredient} {"\n"}</Text>))}</Text>
         <Text style={styles.title}>Steps:</Text>
-        <Text style={styles.paragraph} numberOfLines={5} >{recipe.steps}</Text>
+        <Text   >{recipe.steps}</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
