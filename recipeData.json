@@ -2,6 +2,7 @@
     "recipes":[{
         "name" : "Apfelstrudel",
         "minutes" : 30,
+        "image" : "apfelstrudel.jpg",
         "ingredients" : [
             "apples",
             "flour",
@@ -17,6 +18,7 @@
     {
         "name" : "Pizza",
         "minutes" : 45,
+        "image" : "pizzaPepperoni.jpg",
         "ingredients" : [
             "tomatoes",
             "flour",
@@ -32,6 +34,7 @@
     {
         "name" : "Sushi",
         "minutes" : 60,
+        "image" : "sushi.jpg",
         "ingredients" : [
             "rice",
             "soy sauce",
@@ -49,6 +52,7 @@
     {
         "name" : "Maki",
         "minutes" : 60,
+        "image" : "maki.jpg",
         "ingredients" : [
             "rice",
             "soy sauce",
@@ -66,6 +70,7 @@
     {
         "name" : "Sashimi",
         "minutes" : 60,
+        "image" : "sashimi.jpg",
         "ingredients" : [
             "rice",
             "soy sauce",

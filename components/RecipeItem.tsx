@@ -3,6 +3,7 @@ import { Text, View, Image, StyleSheet, Button } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function RecipeItem(recipe) {
+  let foodImage = require("../img/" + recipe.image)
   return (
     <TouchableOpacity onPress={recipe.onPress}
     accessible={true}
@@ -10,7 +11,7 @@ export default function RecipeItem(recipe) {
     accessibilityHint="Navigates to the detail page">
       <View style={styles.wrapper}>
         <Image
-          source={require("../assets/pizzaPepperoni.jpg")}
+          source={foodImage}
           style={styles.img}
         />
         <View>

@@ -39,15 +39,15 @@ const styles = StyleSheet.create({
 });
 
 export default function RecipeDetails(props) {
-  const {route, navigation} = props;
+  const {route} = props;
   console.log("DetailRoute", route)
   const recipe = route.params.recipe;
-  
+  let foodImage = require("../img/" + recipe.image)
   return (
     <ScrollView style={styles.wrapper}>
       <Image
         style={styles.img}
-        source={require("../assets/sushiIMG.jpg")}
+        source={foodImage}
         resizeMode="cover" 
         accessibilityLabel="Sushi Image"
       />

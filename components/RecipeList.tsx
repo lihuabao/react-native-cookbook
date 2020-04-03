@@ -10,6 +10,7 @@ export default function RecipeList(props) {
         <RecipeItem
           name={recipe.name}
           minutes={recipe.minutes}
+          image={recipe.image}
           key={recipe.name}
           title="Go to Detail Screen"
           onPress={() => {
