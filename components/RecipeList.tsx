@@ -1,31 +1,69 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import RecipeItem from "./RecipeItem";
 import recipeData from "../recipeData.json";
 
-export default function RecipeList(props) {
+export interface Props {
+  navigation: Navigation;
+  route: Route;
+}
+
+interface Navigation {
+  navigate(string, params?): string;
+}
+interface Route {
+  key: string;
+  name: string;
+}
+
+const RecipeList: React.FC<Props> = (props) => {
   return (
     <View style={styles.container}>
-      {recipeData.recipes.map(recipe => (
-        <RecipeItem
-          name={recipe.name}
-          minutes={recipe.minutes}
-          image={recipe.image}
-          key={recipe.name}
-          title="Go to Detail Screen"
-          onPress={() => {
-            props.navigation.navigate("Recipe Details", { recipe });
-          }}
-        />
-      ))}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => props.navigation.navigate("New Recipe")}
+      >
+        <Text>Add Recipe</Text>
+      </TouchableOpacity>
+      <FlatList
+        data={recipeData.recipes}
+        keyExtractor={(recipe) => recipe.name}
+        renderItem={({ item }) => {
+          return (
+            <RecipeItem
+              name={item.name}
+              minutes={item.minutes}
+              image={item.image}
+              key={item.name}
+              title="Go to Detail Screen"
+              onPress={() => {
+                props.navigation.navigate("Recipe Details", { item });
+              }}
+            />
+          );
+        }}
+      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    marginVertical: 30
-  }
+    margin: 30,
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10,
+  },
 });
+
+export default RecipeList;

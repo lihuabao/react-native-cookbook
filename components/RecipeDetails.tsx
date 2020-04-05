@@ -4,7 +4,7 @@ import images from "../assets/images";
 
 export default function RecipeDetails(props) {
   const { route } = props;
-  const recipe = route.params.recipe;
+  const recipe = route.params.item;
   return (
     <ScrollView>
       <Image
