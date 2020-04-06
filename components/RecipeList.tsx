@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -7,22 +7,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import RecipeItem from "./RecipeItem";
-import recipeData from "../recipeData.json";
-
-export interface Props {
-  navigation: Navigation;
-  route: Route;
-}
-
-interface Navigation {
-  navigate(string, params?): string;
-}
-interface Route {
-  key: string;
-  name: string;
-}
+import { RecipeContext } from "../context/recipeContext";
 
 const RecipeList: React.FC<Props> = (props) => {
+  const { recipes } = useContext(RecipeContext);
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -32,8 +20,8 @@ const RecipeList: React.FC<Props> = (props) => {
         <Text>Add Recipe</Text>
       </TouchableOpacity>
       <FlatList
-        data={recipeData.recipes}
-        keyExtractor={(recipe) => recipe.name}
+        data={recipes}
+        keyExtractor={(recipe: Recipe) => recipe.name}
         renderItem={({ item }) => {
           return (
             <RecipeItem
@@ -66,4 +54,25 @@ const styles = StyleSheet.create({
   },
 });
 
+export interface Props {
+  navigation: Navigation;
+  route: Route;
+}
+
+interface Navigation {
+  navigate(string, params?): string;
+}
+interface Route {
+  key: string;
+  name: string;
+}
+
+interface Recipe {
+  id: string;
+  name: string;
+  minutes: number;
+  ingredients: Array<string>;
+  directions: Array<string>;
+  image: string;
+}
 export default RecipeList;
