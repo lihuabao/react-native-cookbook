@@ -4,39 +4,39 @@ import images from "../assets/images";
 
 export default function RecipeItem(props) {
   return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      accessible={true}
-      accessibilityLabel="Recipe Item"
-      accessibilityHint="Navigates to the detail page"
-    >
-      <View style={styles.wrapper}>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={props.onPress}
+        accessible={true}
+        accessibilityLabel="Recipe Item"
+        accessibilityHint="Navigates to the detail page"
+      >
         <Image source={images[props.image]} style={styles.img} />
-        <Text style={styles.nameText}>{props.name}</Text>
-        <Text style={styles.minuteText}>{props.minutes} min</Text>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.textWrapper}>
+          <Text style={styles.nameText}>{props.name}</Text>
+          <Text style={styles.minuteText}>{props.minutes} min</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    marginBottom: 2,
-    width: "100%",
+  container: {
+    flex: 1,
+    padding: 10,
     borderColor: "black",
     borderWidth: 1,
-    flex: 1,
   },
-  img: { width: "50%", height: 100, margin: 15, paddingHorizontal: 10 },
-  textContainer: { margin: 10 },
+  button: { width: "100%" },
+  img: { width: "100%", height: "80%" },
+  textWrapper: { height: "20%" },
   nameText: {
     fontSize: 16,
   },
   minuteText: {
     fontSize: 12,
-    color: "darkgray",
+    color: "dimgray",
   },
 });

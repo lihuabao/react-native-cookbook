@@ -21,9 +21,9 @@ const RecipeList: React.FC<Props> = (props) => {
       >
         <FontAwesomeIcon icon={faPlus} />
       </TouchableOpacity>
+
       <FlatList
         numColumns={2}
-        style={{ padding: 15 }}
         data={recipes}
         keyExtractor={(recipe: Recipe) => recipe.id}
         renderItem={({ item }) => {
@@ -47,19 +47,16 @@ const RecipeList: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
-    margin: 30,
   },
   button: {
-    alignItems: "flex-end",
-    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
     padding: 10,
-    backgroundColor: "pink",
     width: 30,
   },
 });
 
-export interface Props {
+interface Props {
   navigation: Navigation;
   route: Route;
 }
