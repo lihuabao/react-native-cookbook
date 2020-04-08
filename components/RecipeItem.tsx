@@ -12,10 +12,8 @@ export default function RecipeItem(props) {
     >
       <View style={styles.wrapper}>
         <Image source={images[props.image]} style={styles.img} />
-        <View>
-          <Text style={styles.nameText}>{props.name}</Text>
-          <Text style={styles.minuteText}>{props.minutes} min</Text>
-        </View>
+        <Text style={styles.nameText}>{props.name}</Text>
+        <Text style={styles.minuteText}>{props.minutes} min</Text>
       </View>
     </TouchableOpacity>
   );
@@ -23,14 +21,16 @@ export default function RecipeItem(props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
     marginBottom: 2,
-    height: 60,
     width: "100%",
+    borderColor: "black",
+    borderWidth: 1,
+    flex: 1,
   },
-  img: { width: 50, height: 50, margin: 15 },
+  img: { width: "50%", height: 100, margin: 15, paddingHorizontal: 10 },
   textContainer: { margin: 10 },
   nameText: {
     fontSize: 16,

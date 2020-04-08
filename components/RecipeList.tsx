@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import RecipeItem from "./RecipeItem";
 import { RecipeContext } from "../context/recipeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const RecipeList: React.FC<Props> = (props) => {
   const { recipes } = useContext(RecipeContext);
@@ -17,18 +19,19 @@ const RecipeList: React.FC<Props> = (props) => {
         style={styles.button}
         onPress={() => props.navigation.navigate("New Recipe")}
       >
-        <Text>Add Recipe</Text>
+        <FontAwesomeIcon icon={faPlus} />
       </TouchableOpacity>
       <FlatList
+        numColumns={2}
+        style={{ padding: 15 }}
         data={recipes}
-        keyExtractor={(recipe: Recipe) => recipe.name}
+        keyExtractor={(recipe: Recipe) => recipe.id}
         renderItem={({ item }) => {
           return (
             <RecipeItem
               name={item.name}
               minutes={item.minutes}
               image={item.image}
-              key={item.name}
               title="Go to Detail Screen"
               onPress={() => {
                 props.navigation.navigate("Recipe Details", { item });
@@ -48,9 +51,11 @@ const styles = StyleSheet.create({
     margin: 30,
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    alignItems: "flex-end",
+    justifyContent: "center",
     padding: 10,
+    backgroundColor: "pink",
+    width: 30,
   },
 });
 
@@ -72,7 +77,7 @@ interface Recipe {
   name: string;
   minutes: number;
   ingredients: Array<string>;
-  directions: Array<string>;
+  steps: Array<string>;
   image: string;
 }
 export default RecipeList;
