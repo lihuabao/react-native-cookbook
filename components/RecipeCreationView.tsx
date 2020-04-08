@@ -94,22 +94,22 @@ const styles = StyleSheet.create({
   inlineInput: {
     flex: 1,
     height: 30,
-    borderColor: "#cccccc",
+    borderColor: "black",
     borderBottomWidth: 1,
   },
   input: {
     height: 30,
-    borderColor: "#cccccc",
+    borderColor: "black",
     borderBottomWidth: 1,
   },
   multilineInput: {
     height: 100,
-    borderColor: "#cccccc",
+    borderColor: "black",
     borderWidth: 1,
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "sandybrown",
     padding: 10,
     marginVertical: 10,
   },
