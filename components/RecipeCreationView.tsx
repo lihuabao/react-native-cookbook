@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Picker,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 
@@ -14,12 +15,17 @@ export default function RecipeCreationView(props) {
   const [name, setName] = useState("");
   const [minutes, setMinutes] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [directions, setDirections] = useState("");
+  const [steps, setSteps] = useState("");
 
   const addNewRecipe = () => {
     const parsedIngredients = parseStringToArray(ingredients);
-    const parsedDirections = parseStringToArray(directions);
-    saveRecipe({ name, minutes, parsedIngredients, parsedDirections });
+    const parsedsteps = parseStringToArray(steps);
+    saveRecipe({
+      name: name,
+      minutes: minutes,
+      ingredients: parsedIngredients,
+      steps: parsedsteps,
+    });
   };
 
   const parseStringToArray = (string) => {
@@ -39,25 +45,32 @@ export default function RecipeCreationView(props) {
         style={styles.input}
         onChangeText={(text) => setName(text)}
       />
+
       <Text>Duration:</Text>
-      <TextInput
-        value={minutes}
-        style={styles.input}
-        onChangeText={(text) => setMinutes(text)}
-      />
+      <View style={styles.row}>
+        <View style={styles.inputWrap}>
+          <TextInput
+            keyboardType="numeric"
+            value={minutes}
+            style={styles.inlineInput}
+            onChangeText={(text) => setMinutes(text)}
+          />
+          <Text>min</Text>
+        </View>
+      </View>
       <Text>Ingredients:</Text>
       <TextInput
         multiline
         value={ingredients}
-        style={styles.input}
+        style={styles.multilineInput}
         onChangeText={(text) => setIngredients(text)}
       />
-      <Text>Directions:</Text>
+      <Text>Steps:</Text>
       <TextInput
         multiline
-        value={directions}
-        style={styles.input}
-        onChangeText={(text) => setDirections(text)}
+        value={steps}
+        style={styles.multilineInput}
+        onChangeText={(text) => setSteps(text)}
       />
       <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
         <Text>Save</Text>
@@ -70,15 +83,34 @@ const styles = StyleSheet.create({
   container: {
     margin: 30,
   },
+  row: {
+    flexDirection: "row",
+  },
+  inputWrap: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+  },
+  inlineInput: {
+    flex: 1,
+    height: 30,
+    borderColor: "#cccccc",
+    borderBottomWidth: 1,
+  },
   input: {
-    height: 40,
-    borderColor: "gray",
+    height: 30,
+    borderColor: "#cccccc",
+    borderBottomWidth: 1,
+  },
+  multilineInput: {
+    height: 100,
+    borderColor: "#cccccc",
     borderWidth: 1,
-    backgroundColor: "white",
   },
   button: {
     alignItems: "center",
     backgroundColor: "#DDDDDD",
     padding: 10,
+    marginVertical: 10,
   },
 });
