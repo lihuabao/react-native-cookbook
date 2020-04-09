@@ -19,7 +19,7 @@ const RecipeList: React.FC<Props> = (props) => {
         style={styles.button}
         onPress={() => props.navigation.navigate("New Recipe")}
       >
-        <FontAwesomeIcon icon={faPlus} />
+        <FontAwesomeIcon icon={faPlus} size={30} />
       </TouchableOpacity>
 
       <FlatList
@@ -51,9 +51,11 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     alignSelf: "flex-end",
-    padding: 10,
-    width: 30,
+    padding: 15,
+    width: 60,
+    height: 60
   },
+  
 });
 
 interface Props {

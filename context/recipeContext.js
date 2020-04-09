@@ -14,7 +14,7 @@ const RecipeProvider = ({ children }) => {
       ingredients: recipe.ingredients,
       steps: recipe.steps,
     };
-    setRecipes([...recipes, newRecipe]);
+    setRecipes([newRecipe, ...recipes]);
   };
   return (
     <RecipeContext.Provider value={{ recipes, saveRecipe }}>

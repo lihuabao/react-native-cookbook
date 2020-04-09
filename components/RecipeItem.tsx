@@ -28,8 +28,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "black",
     borderWidth: 1,
+    maxWidth: "50%",
+    minHeight: "100%"
+  
+ 
   },
-  button: { width: "100%" },
+  button: { width: "100%", height: "100%", flex: 1 },
   img: { width: "100%", height: "80%" },
   textWrapper: { height: "20%" },
   nameText: {
