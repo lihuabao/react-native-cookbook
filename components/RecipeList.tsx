@@ -1,27 +1,12 @@
 import React, { useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import RecipeItem from "./RecipeItem";
 import { RecipeContext } from "../context/recipeContext";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const RecipeList: React.FC<Props> = (props) => {
   const { recipes } = useContext(RecipeContext);
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => props.navigation.navigate("New Recipe")}
-      >
-        <FontAwesomeIcon icon={faPlus} size={30} />
-      </TouchableOpacity>
-
       <FlatList
         numColumns={2}
         data={recipes}
@@ -53,9 +38,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     padding: 15,
     width: 60,
-    height: 60
+    height: 60,
   },
-  
 });
 
 interface Props {
