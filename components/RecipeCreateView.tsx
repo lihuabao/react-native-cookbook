@@ -5,11 +5,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Picker,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 
-export default function RecipeCreationView(props) {
+export default function RecipeCreateView(props) {
   const { saveRecipe } = useContext(RecipeContext);
 
   const [name, setName] = useState("");
@@ -39,39 +38,46 @@ export default function RecipeCreationView(props) {
 
   return (
     <View style={styles.container}>
-      <Text>Name:</Text>
-      <TextInput
-        value={name}
-        style={styles.input}
-        onChangeText={(text) => setName(text)}
-      />
-
-      <Text>Duration:</Text>
-      <View style={styles.row}>
-        <View style={styles.inputWrap}>
-          <TextInput
-            keyboardType="numeric"
-            value={minutes}
-            style={styles.inlineInput}
-            onChangeText={(text) => setMinutes(text)}
-          />
-          <Text>min</Text>
+      <View style={styles.inputWrapper}>
+        <Text>Name:</Text>
+        <TextInput
+          value={name}
+          style={styles.input}
+          onChangeText={(text) => setName(text)}
+        />
+      </View>
+      <View style={styles.inputWrapper}>
+        <Text>Duration:</Text>
+        <View style={styles.row}>
+          <View style={styles.inputWrap}>
+            <TextInput
+              keyboardType="numeric"
+              value={minutes}
+              style={styles.inlineInput}
+              onChangeText={(text) => setMinutes(text)}
+            />
+            <Text>min</Text>
+          </View>
         </View>
       </View>
-      <Text>Ingredients:</Text>
-      <TextInput
-        multiline
-        value={ingredients}
-        style={styles.multilineInput}
-        onChangeText={(text) => setIngredients(text)}
-      />
-      <Text>Steps:</Text>
-      <TextInput
-        multiline
-        value={steps}
-        style={styles.multilineInput}
-        onChangeText={(text) => setSteps(text)}
-      />
+      <View style={styles.inputWrapper}>
+        <Text>Ingredients:</Text>
+        <TextInput
+          multiline
+          value={ingredients}
+          style={styles.multilineInput}
+          onChangeText={(text) => setIngredients(text)}
+        />
+      </View>
+      <View style={styles.inputWrapper}>
+        <Text>Steps:</Text>
+        <TextInput
+          multiline
+          value={steps}
+          style={styles.multilineInput}
+          onChangeText={(text) => setSteps(text)}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
         <Text>Save</Text>
       </TouchableOpacity>
@@ -82,6 +88,9 @@ export default function RecipeCreationView(props) {
 const styles = StyleSheet.create({
   container: {
     margin: 30,
+  },
+  inputWrapper: {
+    marginVertical: 20,
   },
   row: {
     flexDirection: "row",
@@ -106,6 +115,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderColor: "black",
     borderWidth: 1,
+    marginTop: 10,
   },
   button: {
     alignItems: "center",

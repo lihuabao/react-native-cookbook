@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
 import images from "../assets/images";
 
 export default function RecipeDetails(props) {
-  const { route } = props;
+  const { route, navigation } = props;
   const recipe = route.params.item;
+
+  useEffect(() => {
+    const x = navigation.addListener("focus", () => {
+      console.warn(recipe.minutes);
+    });
+    return x;
+  });
+
   return (
     <ScrollView>
       <Image
