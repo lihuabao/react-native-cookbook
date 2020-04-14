@@ -21,7 +21,15 @@ const RecipeProvider = ({ children }) => {
   const [recipes, dispatch] = useReducer((recipes, { type, obj }) => {
     switch (type) {
       case "add":
-        return [...recipes, obj];
+        const newRecipe = {
+          id: Math.random().toString(), // not really unique but it's just an example
+          name: obj.name,
+          minutes: obj.minutes,
+          image: obj.image ? obj.image : "default",
+          ingredients: obj.ingredients,
+          steps: obj.steps,
+        };
+        return [newRecipe, ...recipes];
       case "update":
         return recipes.map((recipe) => {
           if (recipe.id == obj.id) {
@@ -29,8 +37,8 @@ const RecipeProvider = ({ children }) => {
           }
           return recipe;
         });
-      case "remove":
-        return recipes.filter((_, index) => index !== value);
+      // case "remove":
+      //   return recipes.filter(recipe.id !== obj.id);
       default:
         return recipes;
     }

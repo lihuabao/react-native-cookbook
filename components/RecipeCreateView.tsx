@@ -9,7 +9,7 @@ import {
 import { RecipeContext } from "../context/recipeContext";
 
 export default function RecipeCreateView(props) {
-  const { saveRecipe } = useContext(RecipeContext);
+  const { dispatch } = useContext(RecipeContext);
 
   const [name, setName] = useState("");
   const [minutes, setMinutes] = useState("");
@@ -19,11 +19,14 @@ export default function RecipeCreateView(props) {
   const addNewRecipe = () => {
     const parsedIngredients = parseStringToArray(ingredients);
     const parsedsteps = parseStringToArray(steps);
-    saveRecipe({
-      name: name,
-      minutes: minutes,
-      ingredients: parsedIngredients,
-      steps: parsedsteps,
+    dispatch({
+      type: "add",
+      obj: {
+        name: name,
+        minutes: minutes,
+        ingredients: parsedIngredients,
+        steps: parsedsteps,
+      },
     });
   };
 

@@ -12,7 +12,11 @@ export default function RecipeItem(props) {
         accessibilityLabel="Recipe Item"
         accessibilityHint="Navigates to the detail page"
       >
-        <Image source={images[props.image]} style={styles.img} />
+        <Image
+          resizeMode="cover"
+          source={images[props.image]}
+          style={styles.img}
+        />
         <View style={styles.textWrapper}>
           <Text style={styles.nameText}>{props.name}</Text>
           <Text style={styles.minuteText}>{props.minutes} min</Text>
@@ -29,9 +33,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     maxWidth: "50%",
-    minHeight: "100%"
-  
- 
+    minHeight: "100%",
   },
   button: { width: "100%", height: "100%", flex: 1 },
   img: { width: "100%", height: "80%" },

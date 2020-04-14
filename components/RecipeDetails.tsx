@@ -1,33 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
 import images from "../assets/images";
+import { RecipeContext } from "../context/recipeContext";
 
-export default function RecipeDetails(props) {
-  const { route, navigation } = props;
-  const recipe = route.params.item;
+export default function RecipeDetails({ route }) {
+  const { recipes } = useContext(RecipeContext);
 
-  useEffect(() => {
-    const x = navigation.addListener("focus", () => {
-      console.warn(recipe.minutes);
-    });
-    return x;
-  });
+  const id = route.params.item.id;
+  const currentRecipe = recipes.find((r) => r.id === id);
 
   return (
     <ScrollView>
       <Image
         style={styles.img}
-        source={images[recipe.image]}
+        source={images[currentRecipe.image]}
         resizeMode="cover"
         accessibilityLabel="Sushi Image"
       />
       <View style={styles.content}>
         <Text style={styles.headerTitle}>
-          {recipe.name} ({recipe.minutes} min)
+          {currentRecipe.name} ({currentRecipe.minutes} min)
         </Text>
         <Text style={styles.title}>Ingredients:</Text>
         <Text style={styles.ingredients}>
-          {recipe.ingredients.map((ingredient) => (
+          {currentRecipe.ingredients.map((ingredient) => (
             <Text key={ingredient}>
               {"\u2022" + " "}
               {ingredient} {"\n"}
@@ -35,7 +31,7 @@ export default function RecipeDetails(props) {
           ))}
         </Text>
         <Text style={styles.title}>Steps:</Text>
-        <Text>{recipe.steps}</Text>
+        <Text>{currentRecipe.steps}</Text>
       </View>
     </ScrollView>
   );
