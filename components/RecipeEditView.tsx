@@ -20,6 +20,7 @@ export default function RecipeEditView(props) {
 
   const [name, setName] = useState(currentRecipe.name);
   const [minutes, setMinutes] = useState(currentRecipe.minutes.toString());
+  const [image, setImage] = useState(currentRecipe.image);
   const [ingredients, setIngredients] = useState(ingredientsString);
   const [steps, setSteps] = useState(stepsString);
 
@@ -31,6 +32,7 @@ export default function RecipeEditView(props) {
       obj: {
         id,
         name,
+        image,
         minutes,
         ingredients: parsedIngredients,
         steps: parsedsteps,
