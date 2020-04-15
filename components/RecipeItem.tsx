@@ -1,21 +1,22 @@
 import React from "react";
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import images from "../assets/images";
 
 export default function RecipeItem(props) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={props.onPress}
-        accessible={true}
-        accessibilityLabel="Recipe Item"
-        accessibilityHint="Navigates to the detail page"
-      >
+      <TouchableOpacity style={styles.button} onPress={props.onPress}>
         <Image
+          style={styles.img}
           resizeMode="cover"
           source={images[props.image]}
-          style={styles.img}
         />
         <View style={styles.textWrapper}>
           <Text style={styles.nameText}>{props.name}</Text>
@@ -33,11 +34,18 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     maxWidth: "50%",
-    minHeight: "100%",
+    height: Dimensions.get("screen").width / 2,
   },
-  button: { width: "100%", height: "100%", flex: 1 },
-  img: { width: "100%", height: "80%" },
-  textWrapper: { height: "20%" },
+  button: {
+    flex: 1,
+  },
+  img: {
+    width: "100%",
+    height: "80%",
+  },
+  textWrapper: {
+    height: "20%",
+  },
   nameText: {
     fontSize: 16,
   },
