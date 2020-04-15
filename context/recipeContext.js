@@ -1,23 +1,9 @@
-import React, { createContext, useState, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import recipeData from "../recipeData.json";
 
 export const RecipeContext = createContext();
 
 const RecipeProvider = ({ children }) => {
-  const [existingRecipes, setRecipes] = useState(recipeData.recipes);
-
-  const saveRecipe = (recipe) => {
-    const newRecipe = {
-      id: Math.random().toString(), // not really unique but it's just an example
-      name: recipe.name,
-      minutes: recipe.minutes,
-      image: recipe.image ? recipe.image : "default",
-      ingredients: recipe.ingredients,
-      steps: recipe.steps,
-    };
-    setRecipes([newRecipe, ...existingRecipes]);
-  };
-
   const [recipes, dispatch] = useReducer((recipes, { type, obj }) => {
     switch (type) {
       case "add":
@@ -37,8 +23,8 @@ const RecipeProvider = ({ children }) => {
           }
           return recipe;
         });
-      // case "remove":
-      //   return recipes.filter(recipe.id !== obj.id);
+      case "remove":
+        return recipes.filter((recipe) => recipe.id !== obj.id);
       default:
         return recipes;
     }

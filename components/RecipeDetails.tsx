@@ -1,21 +1,37 @@
-import React, { useEffect, useContext } from "react";
-import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
+import React, { useContext } from "react";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import images from "../assets/images";
 import { RecipeContext } from "../context/recipeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export default function RecipeDetails({ route }) {
-  const { recipes } = useContext(RecipeContext);
-
+export default function RecipeDetails({ route, navigation }) {
+  const { recipes, dispatch } = useContext(RecipeContext);
   const id = route.params.item.id;
   const currentRecipe = recipes.find((r) => r.id === id);
 
+  if (!currentRecipe) return null;
   return (
     <ScrollView>
+      <TouchableOpacity
+        onPress={() => {
+          dispatch({ type: "remove", obj: currentRecipe });
+          navigation.goBack();
+        }}
+      >
+        <FontAwesomeIcon icon={faTrash} size={20} />
+      </TouchableOpacity>
       <Image
         style={styles.img}
         source={images[currentRecipe.image]}
         resizeMode="cover"
-        accessibilityLabel="Sushi Image"
       />
       <View style={styles.content}>
         <Text style={styles.headerTitle}>
