@@ -1,10 +1,24 @@
-import React, { useContext } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import RecipeItem from "./RecipeItem";
 import { RecipeContext } from "../context/recipeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const RecipeList: React.FC<Props> = (props) => {
+export default function RecipeListView({ navigation }) {
   const { recipes } = useContext(RecipeContext);
+
+  navigation.setOptions({
+    headerRight: () => (
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("New Recipe")}
+      >
+        <FontAwesomeIcon icon={faPlus} size={20} />
+      </TouchableOpacity>
+    ),
+  });
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -19,7 +33,7 @@ const RecipeList: React.FC<Props> = (props) => {
               image={item.image}
               title="Go to Detail Screen"
               onPress={() => {
-                props.navigation.navigate("Recipe Details", { item });
+                navigation.navigate("Recipe Details", { item });
               }}
             />
           );
@@ -27,7 +41,7 @@ const RecipeList: React.FC<Props> = (props) => {
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -63,4 +77,3 @@ interface Recipe {
   steps: Array<string>;
   image: string;
 }
-export default RecipeList;

@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "name": "RecipeList",
+      "name": "RecipeListView",
       "shouldAppear": true
     },
     {
