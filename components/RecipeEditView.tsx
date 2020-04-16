@@ -49,6 +49,13 @@ export default function RecipeEditView(props) {
     props.navigation.goBack();
   };
 
+  const lettersOnly = text => text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+
+  const numbersOnly = input => { 
+    const regex = RegExp(/^[1-9][0-9]*$/)
+    return regex.test(input)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
@@ -56,7 +63,8 @@ export default function RecipeEditView(props) {
         <TextInput
           value={name}
           style={styles.input}
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => setName(lettersOnly(text))}
+          maxLength={25}
         />
       </View>
       <View style={styles.inputWrapper}>
@@ -66,7 +74,8 @@ export default function RecipeEditView(props) {
             <TextInput
               value={minutes}
               style={styles.inlineInput}
-              onChangeText={(text) => setMinutes(text)}
+              maxLength={3}
+              onChangeText={input =>  (numbersOnly(input) || input === "") && setMinutes(input)}
             />
             <Text>min</Text>
           </View>
