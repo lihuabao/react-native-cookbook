@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
+import { parseStringToArray, lettersOnly, numbersOnly } from "../helpers.js";
 
 export default function RecipeCreateView(props) {
   const { dispatch } = useContext(RecipeContext);
@@ -30,22 +31,11 @@ export default function RecipeCreateView(props) {
     });
   };
 
-  const parseStringToArray = (string) => {
-    return string.split(/\r?\n/);
-  };
-
   const onSaveRecipe = () => {
     addNewRecipe();
     props.navigation.navigate("Recipes");
   };
 
-  const lettersOnly = text => text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-
-  const numbersOnly = input => { 
-    const regex = RegExp(/^[1-9][0-9]*$/)
-    return regex.test(input)
-  }
-  
   return (
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
@@ -66,7 +56,8 @@ export default function RecipeCreateView(props) {
               value={minutes}
               style={styles.inlineInput}
               maxLength={3}
-              onChangeText={input =>  (numbersOnly(input) || input === "") && setMinutes(input)
+              onChangeText={(input) =>
+                (numbersOnly(input) || input === "") && setMinutes(input)
               }
             />
             <Text>min</Text>
