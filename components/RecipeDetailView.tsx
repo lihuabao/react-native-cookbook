@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import images from "../assets/images";
 import { RecipeContext } from "../context/recipeContext";
@@ -20,13 +21,7 @@ export default function RecipeDetailView({ route, navigation }) {
   navigation.setOptions({
     headerRight: () => (
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            dispatch({ type: "remove", obj: currentRecipe });
-            navigation.navigate("Recipes");
-          }}
-        >
+        <TouchableOpacity style={styles.button} onPress={createTwoButtonAlert}>
           <FontAwesomeIcon icon={faTrash} size={20} />
         </TouchableOpacity>
         <TouchableOpacity
@@ -42,6 +37,26 @@ export default function RecipeDetailView({ route, navigation }) {
       </View>
     ),
   });
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Are you sure?",
+      "Delete the recipe?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            dispatch({ type: "remove", obj: currentRecipe });
+            navigation.navigate("Recipes");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
 
   if (!currentRecipe) return null;
   return (
