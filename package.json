@@ -5,7 +5,15 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest",
+    "watch": "jest --watch"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ]
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -31,6 +39,8 @@
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
     "babel-preset-expo": "~8.0.0",
+    "jest-expo": "^37.0.0",
+    "react-test-renderer": "^16.13.1",
     "typescript": "~3.6.3"
   },
   "private": true
