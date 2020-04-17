@@ -31,8 +31,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    borderColor: "black",
-    borderWidth: 1,
     maxWidth: "50%",
     height: Dimensions.get("screen").width / 2,
   },
