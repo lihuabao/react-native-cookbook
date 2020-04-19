@@ -49,7 +49,7 @@ export default function RecipeEditView(props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputWrapper}>
+      <View style={styles.inputWrap}>
         <Text>Name:</Text>
         <TextInput
           value={name}
@@ -58,10 +58,10 @@ export default function RecipeEditView(props) {
           maxLength={25}
         />
       </View>
-      <View style={styles.inputWrapper}>
+      <View style={styles.inputWrap}>
         <Text>Duration:</Text>
         <View style={styles.row}>
-          <View style={styles.inputWrap}>
+          <View style={styles.inlineWrap}>
             <TextInput
               value={minutes}
               style={styles.inlineInput}
@@ -74,7 +74,7 @@ export default function RecipeEditView(props) {
           </View>
         </View>
       </View>
-      <View style={styles.inputWrapper}>
+      <View style={styles.inputWrap}>
         <Text>Ingredients:</Text>
         <TextInput
           multiline
@@ -83,7 +83,7 @@ export default function RecipeEditView(props) {
           onChangeText={(text) => setIngredients(text)}
         />
       </View>
-      <View style={styles.inputWrapper}>
+      <View style={styles.inputWrap}>
         <Text>Steps:</Text>
         <TextInput
           multiline
@@ -103,13 +103,13 @@ const styles = StyleSheet.create({
   container: {
     margin: 30,
   },
-  inputWrapper: {
+  inputWrap: {
     marginVertical: 20,
   },
   row: {
     flexDirection: "row",
   },
-  inputWrap: {
+  inlineWrap: {
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-end",

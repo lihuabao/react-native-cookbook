@@ -1,5 +1,6 @@
 export const parseStringToArray = (string) => {
-  return string.split(/\r?\n/);
+  // return string.split(/\r?\n/);
+  return string.split(",");
 };
 
 export const lettersOnly = (text) =>
