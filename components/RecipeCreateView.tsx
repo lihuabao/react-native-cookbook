@@ -1,34 +1,48 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
-import { parseStringToArray, lettersOnly, numbersOnly } from "../helpers.js";
+import { lettersOnly, numbersOnly } from "../helpers.js";
 
 export default function RecipeCreateView(props) {
   const { dispatch } = useContext(RecipeContext);
 
   const [name, setName] = useState("");
   const [minutes, setMinutes] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [steps, setSteps] = useState("");
+  const [ingredient, setIngredient] = useState("");
+  const [amount, setAmount] = useState("");
+  const [ingredientList, setIngredientList] = useState([]);
+  const [step, setStep] = useState("");
+  const [stepList, setStepList] = useState([]);
   const [multilineHeight, setMultiplineHeight] = useState(0);
 
+  useEffect(() => {}, [ingredientList, stepList]);
+
+  const addIngredient = () => {
+    const item = { name: ingredient, qty: amount };
+    setIngredientList([...ingredientList, item]);
+    setIngredient("");
+    setAmount("");
+  };
+
+  const addStep = () => {
+    setStepList([...stepList, step]);
+    setStep("");
+  };
+
   const addNewRecipe = () => {
-    const parsedIngredients = parseStringToArray(ingredients);
-    const parsedsteps = parseStringToArray(steps);
     dispatch({
       type: "add",
       obj: {
         name: name,
         minutes: minutes,
-        ingredients: parsedIngredients,
-        steps: parsedsteps,
+        ingredients: ingredientList,
+        steps: stepList,
       },
     });
   };
@@ -41,7 +55,7 @@ export default function RecipeCreateView(props) {
   return (
     <View style={styles.container}>
       <View style={styles.inputWrap}>
-        <Text>Name:</Text>
+        <Text style={styles.inputTitle}>Name:</Text>
         <TextInput
           value={name}
           style={styles.input}
@@ -50,7 +64,7 @@ export default function RecipeCreateView(props) {
         />
       </View>
       <View style={styles.inputWrap}>
-        <Text>Duration:</Text>
+        <Text style={styles.inputTitle}>Time:</Text>
         <View style={styles.row}>
           <View style={styles.inlineWrap}>
             <TextInput
@@ -67,40 +81,52 @@ export default function RecipeCreateView(props) {
         </View>
       </View>
       <View style={styles.inputWrap}>
-        <Text>Ingredients:</Text>
+        <Text style={styles.inputTitle}>Ingredients:</Text>
+
+        {ingredientList.map((ingredient) => (
+          <Text key={ingredient.name}>
+            {`\u2022 ${ingredient.qty} ${ingredient.name} \n`}
+          </Text>
+        ))}
+
         <View style={styles.row}>
           <TextInput
-            value={ingredients}
+            value={ingredient}
             style={styles.inlineInput}
-            onChangeText={(text) => setIngredients(text)}
+            onChangeText={(text) => setIngredient(text)}
           />
           <Text>Qty:</Text>
           <TextInput
-            value={ingredients}
+            value={amount}
             style={styles.inlineInput}
-            onChangeText={(text) => setIngredients(text)}
+            onChangeText={(text) => setAmount(text)}
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
-          <Text>Add a ingredient</Text>
+        <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
+          <Text>Add an ingredient</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.inputWrap}>
-        <Text>Steps:</Text>
+        <Text style={styles.inputTitle}>Steps:</Text>
+
+        {stepList.map((step, index) => (
+          <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
+        ))}
+
         <TextInput
           multiline
-          value={steps}
+          value={step}
           style={[styles.input, { height: Math.max(35, multilineHeight) }]}
-          onChangeText={(text) => setSteps(text)}
+          onChangeText={(text) => setStep(text)}
           onContentSizeChange={(event) => {
             setMultiplineHeight(event.nativeEvent.contentSize.height);
           }}
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
+      <TouchableOpacity style={styles.addButton} onPress={addStep}>
         <Text>Add a step</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
+      <TouchableOpacity style={styles.saveButton} onPress={onSaveRecipe}>
         <Text>Save</Text>
       </TouchableOpacity>
     </View>
@@ -116,6 +142,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+    marginVertical: 20,
   },
   inlineWrap: {
     flex: 1,
@@ -126,6 +153,11 @@ const styles = StyleSheet.create({
     flex: 1,
     borderColor: "black",
     borderBottomWidth: 1,
+  },
+  inputTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   input: {
     justifyContent: "flex-end",
@@ -139,7 +171,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 10,
   },
-  button: {
+  addButton: {
+    alignItems: "center",
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: "peachpuff",
+  },
+  saveButton: {
     alignItems: "center",
     backgroundColor: "sandybrown",
     padding: 10,
