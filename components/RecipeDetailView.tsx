@@ -73,14 +73,15 @@ export default function RecipeDetailView({ route, navigation }) {
         <Text style={styles.title}>Ingredients:</Text>
         <Text style={styles.ingredients}>
           {currentRecipe.ingredients.map((ingredient) => (
-            <Text key={ingredient}>
-              {"\u2022" + " "}
-              {ingredient} {"\n"}
+            <Text key={ingredient.name}>
+              {`\u2022 ${ingredient.qty} ${ingredient.name} \n`}
             </Text>
           ))}
         </Text>
         <Text style={styles.title}>Steps:</Text>
-        <Text>{currentRecipe.steps}</Text>
+        {currentRecipe.steps.map((step, index) => (
+          <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
+        ))}
       </View>
     </ScrollView>
   );
