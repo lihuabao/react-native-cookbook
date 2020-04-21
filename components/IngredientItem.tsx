@@ -11,16 +11,14 @@ export default function IngredientItem(props) {
       underlayColor: "rgba(0, 0, 0, 1, 0.6)",
       onPress: () => {
         onDeleteHandler(ingredient.name);
-      }
-    }
+      },
+    },
   ];
 
   return (
-    <Swipeout right={swipeBtns} autoClose="true" backgroundColor="transparent">
+    <Swipeout right={swipeBtns} autoClose={true} backgroundColor="transparent">
       <TouchableOpacity style={styles.ingredientItem} key={ingredient.name}>
-        <Text
-          style={{ justifyContent: "center" }}
-        >{`\u2022 ${ingredient.name} ${ingredient.qty}\n`}</Text>
+        <Text>{`\u2022 ${ingredient.name} ${ingredient.qty}`}</Text>
       </TouchableOpacity>
     </Swipeout>
   );
@@ -30,6 +28,5 @@ const styles = StyleSheet.create({
   ingredientItem: {
     borderBottomColor: "lightgrey",
     borderBottomWidth: 1,
-    flexDirection: "column"
-  }
+  },
 });
