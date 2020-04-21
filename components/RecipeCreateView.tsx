@@ -10,6 +10,7 @@ import {
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers.js";
 import Swipeout from "react-native-swipeout";
+import IngredientItem from "./IngredientItem";
 
 export default function RecipeCreateView(props) {
   const { dispatch } = useContext(RecipeContext);
@@ -54,36 +55,11 @@ export default function RecipeCreateView(props) {
     props.navigation.navigate("Recipes");
   };
 
-  const deletIngredient = name => {
+  const deleteIngredient = name => {
     const updatedList = ingredientList.filter(i => i.name !== name);
     setIngredientList(updatedList);
   };
-  const renderIngredientItem = ingredient => {
-    let swipeBtns = [
-      {
-        text: "Delete",
-        backgroundColor: "red",
-        underlayColor: "rgba(0, 0, 0, 1, 0.6)",
-        onPress: () => {
-          deletIngredient(ingredient.name);
-        }
-      }
-    ];
 
-    return (
-      <Swipeout
-        right={swipeBtns}
-        autoClose="true"
-        backgroundColor="transparent"
-      >
-        <TouchableOpacity style={styles.ingredientItem} key={ingredient.name}>
-          <Text
-            style={{ justifyContent: "center" }}
-          >{`\u2022 ${ingredient.qty} ${ingredient.name} \n`}</Text>
-        </TouchableOpacity>
-      </Swipeout>
-    );
-  };
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -115,7 +91,12 @@ export default function RecipeCreateView(props) {
         </View>
         <View style={styles.inputWrap}>
           <Text style={styles.inputTitle}>Ingredients:</Text>
-          {ingredientList.map(ingredient => renderIngredientItem(ingredient))}
+          {ingredientList.map(ingredient => (
+            <IngredientItem
+              ingredient={ingredient}
+              onDeleteHandler={deleteIngredient}
+            />
+          ))}
           <View style={styles.row}>
             <TextInput
               value={ingredient}
@@ -196,11 +177,6 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     marginTop: 10
-  },
-  ingredientItem: {
-    borderBottomColor: "lightgrey",
-    borderBottomWidth: 1,
-    flexDirection: "column"
   },
   addButton: {
     alignItems: "center",

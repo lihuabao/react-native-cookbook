@@ -5,18 +5,19 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ScrollView
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { parseStringToArray, lettersOnly, numbersOnly } from "../helpers.js";
 
 export default function RecipeEditView(props) {
-  const parseArrayToString = (array) => {
+  const parseArrayToString = array => {
     return array.join(",");
   };
 
   const { recipes, dispatch } = useContext(RecipeContext);
   const id = props.route.params.item.id;
-  const currentRecipe = recipes.find((r) => r.id === id);
+  const currentRecipe = recipes.find(r => r.id === id);
   const ingredientsString = parseArrayToString(currentRecipe.ingredients);
   const stepsString = parseArrayToString(currentRecipe.steps);
 
@@ -37,8 +38,8 @@ export default function RecipeEditView(props) {
         image,
         minutes,
         ingredients: parsedIngredients,
-        steps: parsedsteps,
-      },
+        steps: parsedsteps
+      }
     });
   };
 
@@ -48,93 +49,95 @@ export default function RecipeEditView(props) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputWrap}>
-        <Text>Name:</Text>
-        <TextInput
-          value={name}
-          style={styles.input}
-          onChangeText={(text) => setName(lettersOnly(text))}
-          maxLength={25}
-        />
-      </View>
-      <View style={styles.inputWrap}>
-        <Text>Duration:</Text>
-        <View style={styles.row}>
-          <View style={styles.inlineWrap}>
-            <TextInput
-              value={minutes}
-              style={styles.inlineInput}
-              maxLength={3}
-              onChangeText={(input) =>
-                (numbersOnly(input) || input === "") && setMinutes(input)
-              }
-            />
-            <Text>min</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.inputWrap}>
+          <Text>Name:</Text>
+          <TextInput
+            value={name}
+            style={styles.input}
+            onChangeText={text => setName(lettersOnly(text))}
+            maxLength={25}
+          />
+        </View>
+        <View style={styles.inputWrap}>
+          <Text>Duration:</Text>
+          <View style={styles.row}>
+            <View style={styles.inlineWrap}>
+              <TextInput
+                value={minutes}
+                style={styles.inlineInput}
+                maxLength={3}
+                onChangeText={input =>
+                  (numbersOnly(input) || input === "") && setMinutes(input)
+                }
+              />
+              <Text>min</Text>
+            </View>
           </View>
         </View>
+        <View style={styles.inputWrap}>
+          <Text>Ingredients:</Text>
+          <TextInput
+            multiline
+            value={ingredients}
+            style={styles.multilineInput}
+            onChangeText={text => setIngredients(text)}
+          />
+        </View>
+        <View style={styles.inputWrap}>
+          <Text>Steps:</Text>
+          <TextInput
+            multiline
+            value={steps}
+            style={styles.multilineInput}
+            onChangeText={text => setSteps(text)}
+          />
+        </View>
+        <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
+          <Text>Save</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.inputWrap}>
-        <Text>Ingredients:</Text>
-        <TextInput
-          multiline
-          value={ingredients}
-          style={styles.multilineInput}
-          onChangeText={(text) => setIngredients(text)}
-        />
-      </View>
-      <View style={styles.inputWrap}>
-        <Text>Steps:</Text>
-        <TextInput
-          multiline
-          value={steps}
-          style={styles.multilineInput}
-          onChangeText={(text) => setSteps(text)}
-        />
-      </View>
-      <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
-        <Text>Save</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 30,
+    margin: 30
   },
   inputWrap: {
-    marginVertical: 20,
+    marginVertical: 20
   },
   row: {
-    flexDirection: "row",
+    flexDirection: "row"
   },
   inlineWrap: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "flex-end",
+    alignItems: "flex-end"
   },
   inlineInput: {
     flex: 1,
     height: 30,
     borderColor: "black",
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
   input: {
     height: 30,
     borderColor: "black",
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
   multilineInput: {
     height: 100,
     borderColor: "black",
     borderWidth: 1,
-    marginTop: 10,
+    marginTop: 10
   },
   button: {
     alignItems: "center",
     backgroundColor: "sandybrown",
     padding: 10,
-    marginVertical: 10,
-  },
+    marginVertical: 10
+  }
 });
