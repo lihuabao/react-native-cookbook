@@ -5,31 +5,47 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Modal,
+  TouchableHighlight,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
-import { parseStringToArray, lettersOnly, numbersOnly } from "../helpers.js";
+import { lettersOnly, numbersOnly } from "../helpers.js";
+import IngredientItem from "./IngredientItem";
+import EditModal from "./EditModal";
 
 export default function RecipeEditView(props) {
-  const parseArrayToString = array => {
-    return array.join(",");
-  };
-
   const { recipes, dispatch } = useContext(RecipeContext);
   const id = props.route.params.item.id;
-  const currentRecipe = recipes.find(r => r.id === id);
-  const ingredientsString = parseArrayToString(currentRecipe.ingredients);
-  const stepsString = parseArrayToString(currentRecipe.steps);
+  const currentRecipe = recipes.find((r) => r.id === id);
 
   const [name, setName] = useState(currentRecipe.name);
   const [minutes, setMinutes] = useState(currentRecipe.minutes.toString());
   const [image, setImage] = useState(currentRecipe.image);
-  const [ingredients, setIngredients] = useState(ingredientsString);
-  const [steps, setSteps] = useState(stepsString);
+  const [ingredientList, setIngredientList] = useState(
+    currentRecipe.ingredients
+  );
+  const [stepList, setStepList] = useState(currentRecipe.steps);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [itemBeingEdited, setItemBeingEdited] = useState([]);
+
+  const deleteIngredient = (name) => {
+    const updatedList = ingredientList.filter((i) => i.name !== name);
+    setIngredientList(updatedList);
+  };
+
+  const onToggleModal = (isVisible) => {
+    setModalVisible(!isVisible);
+  };
+
+  const editIngredient = (name) => {
+    const toBeEditedIngredient = ingredientList.filter((i) => i.name === name);
+    setItemBeingEdited(toBeEditedIngredient);
+    setModalVisible(true);
+    // openEditModal()
+  };
 
   const editRecipe = () => {
-    const parsedIngredients = parseStringToArray(ingredients);
-    const parsedsteps = parseStringToArray(steps);
     dispatch({
       type: "update",
       obj: {
@@ -37,9 +53,9 @@ export default function RecipeEditView(props) {
         name,
         image,
         minutes,
-        ingredients: parsedIngredients,
-        steps: parsedsteps
-      }
+        ingredients: ingredientList,
+        steps: stepList,
+      },
     });
   };
 
@@ -56,7 +72,7 @@ export default function RecipeEditView(props) {
           <TextInput
             value={name}
             style={styles.input}
-            onChangeText={text => setName(lettersOnly(text))}
+            onChangeText={(text) => setName(lettersOnly(text))}
             maxLength={25}
           />
         </View>
@@ -68,7 +84,7 @@ export default function RecipeEditView(props) {
                 value={minutes}
                 style={styles.inlineInput}
                 maxLength={3}
-                onChangeText={input =>
+                onChangeText={(input) =>
                   (numbersOnly(input) || input === "") && setMinutes(input)
                 }
               />
@@ -78,22 +94,26 @@ export default function RecipeEditView(props) {
         </View>
         <View style={styles.inputWrap}>
           <Text>Ingredients:</Text>
-          <TextInput
-            multiline
-            value={ingredients}
-            style={styles.multilineInput}
-            onChangeText={text => setIngredients(text)}
-          />
+          {ingredientList.map((ingredient) => (
+            <IngredientItem
+              key={ingredient.name}
+              ingredient={ingredient}
+              onEditHandler={editIngredient}
+              onDeleteHandler={deleteIngredient}
+            />
+          ))}
         </View>
         <View style={styles.inputWrap}>
           <Text>Steps:</Text>
-          <TextInput
-            multiline
-            value={steps}
-            style={styles.multilineInput}
-            onChangeText={text => setSteps(text)}
-          />
+          {stepList.map((step, index) => (
+            <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
+          ))}
         </View>
+        <EditModal
+          isVisible={modalVisible}
+          onToggleModal={onToggleModal}
+          itemToBeEdited={itemBeingEdited}
+        />
         <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
           <Text>Save</Text>
         </TouchableOpacity>
@@ -104,40 +124,40 @@ export default function RecipeEditView(props) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 30
+    margin: 30,
   },
   inputWrap: {
-    marginVertical: 20
+    marginVertical: 20,
   },
   row: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   inlineWrap: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   inlineInput: {
     flex: 1,
     height: 30,
     borderColor: "black",
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   input: {
     height: 30,
     borderColor: "black",
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   multilineInput: {
     height: 100,
     borderColor: "black",
     borderWidth: 1,
-    marginTop: 10
+    marginTop: 10,
   },
   button: {
     alignItems: "center",
     backgroundColor: "sandybrown",
     padding: 10,
-    marginVertical: 10
-  }
+    marginVertical: 10,
+  },
 });
