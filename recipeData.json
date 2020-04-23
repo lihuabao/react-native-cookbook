@@ -1,11 +1,11 @@
 {
   "recipes": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Apfelstrudel",
       "minutes": 30,
       "image": "apfelstrudel",
-      "ingredients": [{"name": "milk", "qty": "250 ml"}],
+      "ingredients": [{ "name": "milk", "qty": "250 ml" }],
       "steps": [
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
@@ -13,11 +13,11 @@
       ]
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Pizza",
       "minutes": 45,
       "image": "pizza",
-      "ingredients": [{"name": "flour", "qty":"500 g"}],
+      "ingredients": [{ "name": "flour", "qty": "500 g" }],
       "steps": [
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
@@ -25,13 +25,11 @@
       ]
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Sushi",
       "minutes": 60,
       "image": "sushi",
-      "ingredients": [
-        {"name": "rice", "qty":"300 g"}
-      ],
+      "ingredients": [{ "name": "rice", "qty": "300 g" }],
       "steps": [
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
@@ -39,13 +37,11 @@
       ]
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Maki",
       "minutes": 60,
       "image": "maki",
-      "ingredients": [
-        {"name": "salt", "qty":"1/2 tsp"}
-      ],
+      "ingredients": [{ "name": "salt", "qty": "1/2 tsp" }],
       "steps": [
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
@@ -53,13 +49,11 @@
       ]
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Sashimi",
       "minutes": 60,
       "image": "sashimi",
-      "ingredients": [
-        {"name": "oil", "qty":"2 Tbsp"}
-      ],
+      "ingredients": [{ "name": "oil", "qty": "2 Tbsp" }],
       "steps": [
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",
         "Bacon ipsum dolor amet bacon filet mignon ball tip pig, fatback prosciutto pork belly turducken ham drumstick landjaeger kielbasa shankle frankfurter pancetta.",

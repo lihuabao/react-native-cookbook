@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -27,7 +27,10 @@ export default function RecipeEditView(props) {
   );
   const [stepList, setStepList] = useState(currentRecipe.steps);
   const [modalVisible, setModalVisible] = useState(false);
-  const [itemBeingEdited, setItemBeingEdited] = useState([]);
+  const [itemBeingEdited, setItemBeingEdited] = useState({});
+  const [itemIndex, setItemIndex] = useState();
+
+  useEffect(() => {}, [ingredientList, stepList]);
 
   const deleteIngredient = (name) => {
     const updatedList = ingredientList.filter((i) => i.name !== name);
@@ -39,10 +42,21 @@ export default function RecipeEditView(props) {
   };
 
   const editIngredient = (name) => {
-    const toBeEditedIngredient = ingredientList.filter((i) => i.name === name);
+    const toBeEditedIngredient = ingredientList.find((i) => i.name === name);
     setItemBeingEdited(toBeEditedIngredient);
+    const index = ingredientList.findIndex((i) => i.name === name);
+    setItemIndex(index);
     setModalVisible(true);
-    // openEditModal()
+  };
+
+  const updateIngredient = (ingredient) => {
+    const updatedList = ingredientList.map((i, index) => {
+      if (index === itemIndex) {
+        i = ingredient;
+      }
+      return i;
+    });
+    setIngredientList(updatedList);
   };
 
   const editRecipe = () => {
@@ -72,7 +86,7 @@ export default function RecipeEditView(props) {
           <TextInput
             value={name}
             style={styles.input}
-            onChangeText={(text) => setName(lettersOnly(text))}
+            onChangeText={(input) => setName(lettersOnly(input))}
             maxLength={25}
           />
         </View>
@@ -103,17 +117,18 @@ export default function RecipeEditView(props) {
             />
           ))}
         </View>
+        <EditModal
+          isVisible={modalVisible}
+          onToggleModal={onToggleModal}
+          itemToBeEdited={itemBeingEdited}
+          onSaveHandler={updateIngredient}
+        />
         <View style={styles.inputWrap}>
           <Text>Steps:</Text>
           {stepList.map((step, index) => (
             <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
           ))}
         </View>
-        <EditModal
-          isVisible={modalVisible}
-          onToggleModal={onToggleModal}
-          itemToBeEdited={itemBeingEdited}
-        />
         <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
           <Text>Save</Text>
         </TouchableOpacity>

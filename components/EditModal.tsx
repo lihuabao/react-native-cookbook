@@ -9,15 +9,33 @@ import {
 import { TextInput } from "react-native-gesture-handler";
 
 export default function EditModal(props) {
-  const { isVisible, onToggleModal, itemToBeEdited } = props;
-  const obj = itemToBeEdited[0];
+  const { isVisible, onToggleModal, itemToBeEdited, onSaveHandler } = props;
 
-  const [ingredientName, setIngredientName] = useState(obj && obj.name);
-  const [ingredientQty, setIngredientQty] = useState(obj && obj.qty);
+  const [ingredientName, setIngredientName] = useState("");
+  const [ingredientQty, setIngredientQty] = useState("");
+
   useEffect(() => {
-    setIngredientName(obj && obj.name);
-    setIngredientQty(obj && obj.qty);
+    if (typeof itemToBeEdited === "object") {
+      setIngredientName(itemToBeEdited.name);
+      setIngredientQty(itemToBeEdited.qty);
+    }
   }, [itemToBeEdited]);
+
+  const ingredientEditInput = () => (
+    <View style={{ flexDirection: "row" }}>
+      <TextInput
+        style={styles.input}
+        value={ingredientName}
+        onChangeText={(input) => setIngredientName(input)}
+      />
+      <Text>Qty:</Text>
+      <TextInput
+        style={styles.input}
+        value={ingredientQty}
+        onChangeText={(input) => setIngredientQty(input)}
+      />
+    </View>
+  );
 
   return (
     <Modal
@@ -30,26 +48,11 @@ export default function EditModal(props) {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <View style={{ flexDirection: "row" }}>
-            <TextInput
-              style={styles.input}
-              value={ingredientName}
-              // onChangeText={}
-            />
-            <Text>Qty:</Text>
-            <TextInput
-              style={styles.input}
-              value={ingredientQty}
-              // onChangeText={}
-            />
-          </View>
-
+          {typeof itemToBeEdited === "object" && ingredientEditInput()}
           <View style={{ flexDirection: "row" }}>
             <TouchableHighlight
               style={styles.openButton}
-              onPress={() => {
-                onToggleModal(isVisible);
-              }}
+              onPress={() => onToggleModal(isVisible)}
             >
               <Text style={styles.textStyle}>Cancel</Text>
             </TouchableHighlight>
@@ -57,6 +60,7 @@ export default function EditModal(props) {
               style={styles.openButton}
               onPress={() => {
                 onToggleModal(isVisible);
+                onSaveHandler({ name: ingredientName, qty: ingredientQty });
               }}
             >
               <Text style={styles.textStyle}>Save</Text>
