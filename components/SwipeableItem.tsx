@@ -2,41 +2,46 @@ import React from "react";
 import Swipeout from "react-native-swipeout";
 import { Text, StyleSheet, TouchableHighlight } from "react-native";
 
-export default function IngredientItem(props) {
-  const { ingredient, onDeleteHandler, onEditHandler } = props;
+export default function SwipeableItem(props) {
+  const { ingredient, step, onDeleteHandler, onEditHandler, key } = props;
+
+  const itemType = ingredient ? ingredient.name : step;
+
   let swipeBtns = [
     {
       text: "Edit",
       backgroundColor: "green",
       onPress: () => {
-        onEditHandler(ingredient.name);
-      },
+        onEditHandler(itemType);
+      }
     },
     {
       text: "Delete",
       backgroundColor: "red",
       onPress: () => {
-        onDeleteHandler(ingredient.name);
-      },
-    },
+        onDeleteHandler(itemType);
+      }
+    }
   ];
-
+  console.warn(ingredient, step);
   return (
     <Swipeout right={swipeBtns} autoClose={true} backgroundColor="transparent">
       <TouchableHighlight
         underlayColor="rgba(192,192,192,1)"
-        style={styles.ingredientItem}
-        key={ingredient.name}
+        style={styles.SwipeableItem}
       >
-        <Text>{`\u2022 ${ingredient.name} ${ingredient.qty}`}</Text>
+        {ingredient && (
+          <Text>{`\u2022 ${ingredient.name} ${ingredient.qty}`}</Text>
+        )}
+        {step && <Text>{`${(key + 1).toString()}. ${step} \n`}</Text>}
       </TouchableHighlight>
     </Swipeout>
   );
 }
 
 const styles = StyleSheet.create({
-  ingredientItem: {
+  SwipeableItem: {
     borderBottomColor: "lightgrey",
-    borderBottomWidth: 1,
-  },
+    borderBottomWidth: 1
+  }
 });

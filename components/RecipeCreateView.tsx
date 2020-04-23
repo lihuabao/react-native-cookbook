@@ -5,11 +5,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
+  ScrollView
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers.js";
-import IngredientItem from "./IngredientItem";
+import SwipeableItem from "./SwipeableItem";
 
 export default function RecipeCreateView(props) {
   const { dispatch } = useContext(RecipeContext);
@@ -44,8 +44,8 @@ export default function RecipeCreateView(props) {
         name: name,
         minutes: minutes,
         ingredients: ingredientList,
-        steps: stepList,
-      },
+        steps: stepList
+      }
     });
   };
 
@@ -54,8 +54,8 @@ export default function RecipeCreateView(props) {
     props.navigation.navigate("Recipes");
   };
 
-  const deleteIngredient = (name) => {
-    const updatedList = ingredientList.filter((i) => i.name !== name);
+  const deleteIngredient = name => {
+    const updatedList = ingredientList.filter(i => i.name !== name);
     setIngredientList(updatedList);
   };
 
@@ -67,7 +67,7 @@ export default function RecipeCreateView(props) {
           <TextInput
             value={name}
             style={styles.input}
-            onChangeText={(text) => setName(lettersOnly(text))}
+            onChangeText={text => setName(lettersOnly(text))}
             maxLength={25}
           />
         </View>
@@ -80,7 +80,7 @@ export default function RecipeCreateView(props) {
                 value={minutes}
                 style={styles.inlineInput}
                 maxLength={3}
-                onChangeText={(input) =>
+                onChangeText={input =>
                   (numbersOnly(input) || input === "") && setMinutes(input)
                 }
               />
@@ -90,8 +90,8 @@ export default function RecipeCreateView(props) {
         </View>
         <View style={styles.inputWrap}>
           <Text style={styles.inputTitle}>Ingredients:</Text>
-          {ingredientList.map((ingredient) => (
-            <IngredientItem
+          {ingredientList.map(ingredient => (
+            <SwipeableItem
               key={ingredient.name}
               ingredient={ingredient}
               onDeleteHandler={deleteIngredient}
@@ -101,13 +101,13 @@ export default function RecipeCreateView(props) {
             <TextInput
               value={ingredient}
               style={styles.inlineInput}
-              onChangeText={(text) => setIngredient(text)}
+              onChangeText={text => setIngredient(text)}
             />
             <Text>Qty:</Text>
             <TextInput
               value={amount}
               style={styles.inlineInput}
-              onChangeText={(text) => setAmount(text)}
+              onChangeText={text => setAmount(text)}
             />
           </View>
           <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
@@ -123,8 +123,8 @@ export default function RecipeCreateView(props) {
             multiline
             value={step}
             style={[styles.input, { height: Math.max(35, multilineHeight) }]}
-            onChangeText={(text) => setStep(text)}
-            onContentSizeChange={(event) => {
+            onChangeText={text => setStep(text)}
+            onContentSizeChange={event => {
               setMultiplineHeight(event.nativeEvent.contentSize.height);
             }}
           />
@@ -142,52 +142,52 @@ export default function RecipeCreateView(props) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 30,
+    margin: 30
   },
   inputWrap: {
-    marginVertical: 20,
+    marginVertical: 20
   },
   row: {
     flexDirection: "row",
-    marginVertical: 20,
+    marginVertical: 20
   },
   inlineWrap: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "flex-end",
+    alignItems: "flex-end"
   },
   inlineInput: {
     flex: 1,
     borderColor: "black",
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
   inputTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 10
   },
   input: {
     justifyContent: "flex-end",
     height: 30,
     borderColor: "black",
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
   multilineInput: {
     height: 100,
     borderColor: "black",
     borderWidth: 1,
-    marginTop: 10,
+    marginTop: 10
   },
   addButton: {
     alignItems: "center",
     padding: 10,
     marginVertical: 10,
-    backgroundColor: "peachpuff",
+    backgroundColor: "peachpuff"
   },
   saveButton: {
     alignItems: "center",
     backgroundColor: "sandybrown",
     padding: 10,
-    marginVertical: 10,
-  },
+    marginVertical: 10
+  }
 });
