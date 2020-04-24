@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -25,16 +25,21 @@ export default function RecipeCreateView(props) {
 
   useEffect(() => {}, [ingredientList, stepList]);
 
+  const ingredientRef = useRef(null);
+  const stepRef = useRef(null);
+
   const addIngredient = () => {
     const item = { name: ingredient, qty: amount };
     setIngredientList([...ingredientList, item]);
     setIngredient("");
     setAmount("");
+    ingredientRef.current.focus();
   };
 
   const addStep = () => {
     setStepList([...stepList, step]);
     setStep("");
+    stepRef.current.focus();
   };
 
   const addNewRecipe = () => {
@@ -102,6 +107,7 @@ export default function RecipeCreateView(props) {
               value={ingredient}
               style={styles.inlineInput}
               onChangeText={text => setIngredient(text)}
+              ref={ingredientRef}
             />
             <Text>Qty:</Text>
             <TextInput
@@ -127,6 +133,7 @@ export default function RecipeCreateView(props) {
             onContentSizeChange={event => {
               setMultiplineHeight(event.nativeEvent.contentSize.height);
             }}
+            ref={stepRef}
           />
         </View>
         <TouchableOpacity style={styles.addButton} onPress={addStep}>
