@@ -6,8 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Modal,
-  TouchableHighlight,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers.js";
@@ -43,14 +41,18 @@ export default function RecipeEditView(props) {
   };
 
   const editIngredient = (name) => {
-    const toBeEditedIngredient = ingredientList.find((i) => i.name === name);
-    setItemBeingEdited(toBeEditedIngredient);
     const index = ingredientList.findIndex((i) => i.name === name);
     setItemIndex(index);
+    setItemBeingEdited(ingredientList[index]);
     setModalVisible(true);
   };
 
-  const editStep = () => {};
+  const editStep = (step) => {
+    const index = stepList.findIndex((s) => s === step);
+    setItemIndex(index);
+    setItemBeingEdited(stepList[index]);
+    setModalVisible(true);
+  };
 
   const onToggleModal = (isVisible) => {
     setModalVisible(!isVisible);
@@ -64,6 +66,16 @@ export default function RecipeEditView(props) {
       return i;
     });
     setIngredientList(updatedList);
+  };
+
+  const updateStep = (step) => {
+    const updatedList = stepList.map((s, index) => {
+      if (index === itemIndex) {
+        s = step;
+      }
+      return s;
+    });
+    setStepList(updatedList);
   };
 
   const editRecipe = () => {
@@ -128,7 +140,9 @@ export default function RecipeEditView(props) {
           isVisible={modalVisible}
           onToggleModal={onToggleModal}
           itemToBeEdited={itemBeingEdited}
-          onSaveHandler={updateIngredient}
+          onSaveHandler={
+            typeof itemBeingEdited === "object" ? updateIngredient : updateStep
+          }
         />
         <View style={styles.inputWrap}>
           <Text>Steps:</Text>

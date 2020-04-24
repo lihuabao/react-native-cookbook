@@ -13,11 +13,15 @@ export default function EditModal(props) {
 
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQty, setIngredientQty] = useState("");
+  const [step, setStep] = useState("");
+  const [multilineHeight, setMultiplineHeight] = useState(0);
 
   useEffect(() => {
     if (typeof itemToBeEdited === "object") {
       setIngredientName(itemToBeEdited.name);
       setIngredientQty(itemToBeEdited.qty);
+    } else {
+      setStep(itemToBeEdited);
     }
   }, [itemToBeEdited]);
 
@@ -37,6 +41,20 @@ export default function EditModal(props) {
     </View>
   );
 
+  const stepEditInput = () => (
+    <View style={{ flexDirection: "row" }}>
+      <TextInput
+        multiline
+        value={step}
+        style={[styles.input, { height: Math.max(35, multilineHeight) }]}
+        onChangeText={(text) => setStep(text)}
+        onContentSizeChange={(event) => {
+          setMultiplineHeight(event.nativeEvent.contentSize.height);
+        }}
+      />
+    </View>
+  );
+
   return (
     <Modal
       animationType="fade"
@@ -48,7 +66,10 @@ export default function EditModal(props) {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          {typeof itemToBeEdited === "object" && ingredientEditInput()}
+          {typeof itemToBeEdited === "object"
+            ? ingredientEditInput()
+            : stepEditInput()}
+
           <View style={{ flexDirection: "row" }}>
             <TouchableHighlight
               style={styles.openButton}
@@ -60,7 +81,12 @@ export default function EditModal(props) {
               style={styles.openButton}
               onPress={() => {
                 onToggleModal(isVisible);
-                onSaveHandler({ name: ingredientName, qty: ingredientQty });
+                console.warn(step);
+                onSaveHandler(
+                  typeof itemToBeEdited === "object"
+                    ? { name: ingredientName, qty: ingredientQty }
+                    : step
+                );
               }}
             >
               <Text style={styles.textStyle}>Save</Text>
