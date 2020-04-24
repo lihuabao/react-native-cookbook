@@ -38,6 +38,7 @@ export default function EditModal(props) {
         value={ingredientName}
         onChangeText={(input) => setIngredientName(input)}
       />
+
       <Text>Qty:</Text>
       <TextInput
         style={styles.input}
