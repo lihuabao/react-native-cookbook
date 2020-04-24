@@ -1,8 +1,3 @@
-export const parseStringToArray = (string) => {
-  // return string.split(/\r?\n/);
-  return string.split(",");
-};
-
 export const lettersOnly = (text) =>
   text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "");
 

@@ -4,9 +4,9 @@ import {
   Modal,
   View,
   Text,
-  TouchableHighlight
+  TextInput,
+  TouchableHighlight,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 
 export default function EditModal(props) {
   const {
@@ -14,7 +14,7 @@ export default function EditModal(props) {
     onToggleModal,
     itemToBeEdited,
     onSaveHandler,
-    itemType
+    itemType,
   } = props;
 
   const [ingredientName, setIngredientName] = useState("");
@@ -36,13 +36,13 @@ export default function EditModal(props) {
       <TextInput
         style={styles.input}
         value={ingredientName}
-        onChangeText={input => setIngredientName(input)}
+        onChangeText={(input) => setIngredientName(input)}
       />
       <Text>Qty:</Text>
       <TextInput
         style={styles.input}
         value={ingredientQty}
-        onChangeText={input => setIngredientQty(input)}
+        onChangeText={(input) => setIngredientQty(input)}
       />
     </View>
   );
@@ -53,8 +53,8 @@ export default function EditModal(props) {
         multiline
         value={step}
         style={[styles.input, { height: Math.max(35, multilineHeight) }]}
-        onChangeText={text => setStep(text)}
-        onContentSizeChange={event => {
+        onChangeText={(text) => setStep(text)}
+        onContentSizeChange={(event) => {
           setMultiplineHeight(event.nativeEvent.contentSize.height);
         }}
       />
@@ -73,7 +73,6 @@ export default function EditModal(props) {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           {itemType === "ingredient" ? ingredientEditInput() : stepEditInput()}
-
           <View style={{ flexDirection: "row" }}>
             <TouchableHighlight
               style={styles.openButton}
@@ -85,7 +84,6 @@ export default function EditModal(props) {
               style={styles.openButton}
               onPress={() => {
                 onToggleModal(isVisible);
-                console.warn(step);
                 onSaveHandler(
                   itemType === "ingredient"
                     ? { name: ingredientName, qty: ingredientQty }
@@ -105,13 +103,13 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "black",
     borderWidth: 1,
-    flex: 1
+    flex: 1,
   },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -122,25 +120,25 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
   },
   openButton: {
     backgroundColor: "#F194FF",
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
