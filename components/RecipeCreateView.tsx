@@ -5,7 +5,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  KeyboardAvoidingView
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers.js";
@@ -65,85 +66,87 @@ export default function RecipeCreateView(props) {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.inputWrap}>
-          <Text style={styles.inputTitle}>Name:</Text>
-          <TextInput
-            value={name}
-            style={styles.input}
-            onChangeText={text => setName(lettersOnly(text))}
-            maxLength={25}
-          />
-        </View>
-        <View style={styles.inputWrap}>
-          <Text style={styles.inputTitle}>Time:</Text>
-          <View style={styles.row}>
-            <View style={styles.inlineWrap}>
-              <TextInput
-                keyboardType="numeric"
-                value={minutes}
-                style={styles.inlineInput}
-                maxLength={3}
-                onChangeText={input =>
-                  (numbersOnly(input) || input === "") && setMinutes(input)
-                }
-              />
-              <Text>min</Text>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled={true}>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <View style={styles.container}>
+          <View style={styles.inputWrap}>
+            <Text style={styles.inputTitle}>Name:</Text>
+            <TextInput
+              value={name}
+              style={styles.input}
+              onChangeText={text => setName(lettersOnly(text))}
+              maxLength={25}
+            />
+          </View>
+          <View style={styles.inputWrap}>
+            <Text style={styles.inputTitle}>Time:</Text>
+            <View style={styles.row}>
+              <View style={styles.inlineWrap}>
+                <TextInput
+                  keyboardType="numeric"
+                  value={minutes}
+                  style={styles.inlineInput}
+                  maxLength={3}
+                  onChangeText={input =>
+                    (numbersOnly(input) || input === "") && setMinutes(input)
+                  }
+                />
+                <Text>min</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.inputWrap}>
-          <Text style={styles.inputTitle}>Ingredients:</Text>
-          {ingredientList.map(ingredient => (
-            <SwipeableItem
-              key={ingredient.name}
-              ingredient={ingredient}
-              onDeleteHandler={deleteIngredient}
-            />
-          ))}
-          <View style={styles.row}>
+          <View style={styles.inputWrap}>
+            <Text style={styles.inputTitle}>Ingredients:</Text>
+            {ingredientList.map(ingredient => (
+              <SwipeableItem
+                key={ingredient.name}
+                ingredient={ingredient}
+                onDeleteHandler={deleteIngredient}
+              />
+            ))}
+            <View style={styles.row}>
+              <TextInput
+                value={ingredient}
+                style={styles.inlineInput}
+                onChangeText={text => setIngredient(text)}
+                ref={ingredientRef}
+              />
+              <Text>Qty:</Text>
+              <TextInput
+                value={amount}
+                style={styles.inlineInput}
+                onChangeText={text => setAmount(text)}
+              />
+            </View>
+            <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
+              <Text>Add an ingredient</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.inputWrap}>
+            <Text style={styles.inputTitle}>Steps:</Text>
+            {stepList.map((step, index) => (
+              <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
+            ))}
             <TextInput
-              value={ingredient}
-              style={styles.inlineInput}
-              onChangeText={text => setIngredient(text)}
-              ref={ingredientRef}
-            />
-            <Text>Qty:</Text>
-            <TextInput
-              value={amount}
-              style={styles.inlineInput}
-              onChangeText={text => setAmount(text)}
+              multiline
+              value={step}
+              style={[styles.input, { height: Math.max(35, multilineHeight) }]}
+              onChangeText={text => setStep(text)}
+              onContentSizeChange={event => {
+                setMultiplineHeight(event.nativeEvent.contentSize.height);
+              }}
+              ref={stepRef}
             />
           </View>
-          <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
-            <Text>Add an ingredient</Text>
+          <TouchableOpacity style={styles.addButton} onPress={addStep}>
+            <Text>Add a step</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.saveButton} onPress={onSaveRecipe}>
+            <Text>Save</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.inputWrap}>
-          <Text style={styles.inputTitle}>Steps:</Text>
-          {stepList.map((step, index) => (
-            <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
-          ))}
-          <TextInput
-            multiline
-            value={step}
-            style={[styles.input, { height: Math.max(35, multilineHeight) }]}
-            onChangeText={text => setStep(text)}
-            onContentSizeChange={event => {
-              setMultiplineHeight(event.nativeEvent.contentSize.height);
-            }}
-            ref={stepRef}
-          />
-        </View>
-        <TouchableOpacity style={styles.addButton} onPress={addStep}>
-          <Text>Add a step</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.saveButton} onPress={onSaveRecipe}>
-          <Text>Save</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -195,6 +198,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "sandybrown",
     padding: 10,
-    marginVertical: 10
+    marginTop: 20,
+    marginBottom: 50
   }
 });

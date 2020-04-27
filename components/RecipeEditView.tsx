@@ -93,7 +93,7 @@ export default function RecipeEditView(props) {
   };
 
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <View style={styles.container}>
         <View style={styles.inputWrap}>
           <Text>Name:</Text>
