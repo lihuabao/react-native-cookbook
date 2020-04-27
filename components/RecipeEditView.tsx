@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -28,8 +28,29 @@ export default function RecipeEditView(props) {
   const [itemBeingEdited, setItemBeingEdited] = useState({});
   const [itemIndex, setItemIndex] = useState();
   const [itemType, setItemType] = useState("");
+  const [ingredient, setIngredient] = useState("");
+  const [amount, setAmount] = useState("");
+  const [step, setStep] = useState("");
+  const [multilineHeight, setMultiplineHeight] = useState(0);
 
   useEffect(() => {}, [ingredientList, stepList]);
+
+  const ingredientRef = useRef(null);
+  const stepRef = useRef(null);
+
+  const addIngredient = () => {
+    const item = { name: ingredient, qty: amount };
+    setIngredientList([...ingredientList, item]);
+    setIngredient("");
+    setAmount("");
+    ingredientRef.current.focus();
+  };
+
+  const addStep = () => {
+    setStepList([...stepList, step]);
+    setStep("");
+    stepRef.current.focus();
+  };
 
   const deleteIngredient = name => {
     const updatedList = ingredientList.filter(i => i.name !== name);
@@ -131,6 +152,23 @@ export default function RecipeEditView(props) {
             />
           ))}
         </View>
+        <View style={styles.row}>
+          <TextInput
+            value={ingredient}
+            style={styles.inlineInput}
+            onChangeText={text => setIngredient(text)}
+            ref={ingredientRef}
+          />
+          <Text>Qty:</Text>
+          <TextInput
+            value={amount}
+            style={styles.inlineInput}
+            onChangeText={text => setAmount(text)}
+          />
+        </View>
+        <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
+          <Text>Add an ingredient</Text>
+        </TouchableOpacity>
         <EditModal
           isVisible={modalVisible}
           onToggleModal={onToggleModal}
@@ -150,6 +188,21 @@ export default function RecipeEditView(props) {
             />
           ))}
         </View>
+        <View>
+          <TextInput
+            multiline
+            value={step}
+            style={[styles.input, { height: Math.max(20, multilineHeight) }]}
+            onChangeText={text => setStep(text)}
+            onContentSizeChange={event => {
+              setMultiplineHeight(event.nativeEvent.contentSize.height);
+            }}
+            ref={stepRef}
+          />
+        </View>
+        <TouchableOpacity style={styles.addButton} onPress={addStep}>
+          <Text>Add a step</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
           <Text>Save</Text>
         </TouchableOpacity>
@@ -175,7 +228,6 @@ const styles = StyleSheet.create({
   },
   inlineInput: {
     flex: 1,
-    height: 30,
     borderColor: "black",
     borderBottomWidth: 1
   },
@@ -195,5 +247,11 @@ const styles = StyleSheet.create({
     backgroundColor: "sandybrown",
     padding: 10,
     marginVertical: 10
+  },
+  addButton: {
+    alignItems: "center",
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: "peachpuff"
   }
 });
