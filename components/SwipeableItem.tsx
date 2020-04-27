@@ -13,22 +13,22 @@ export default function SwipeableItem(props) {
       backgroundColor: "green",
       onPress: () => {
         onEditHandler(itemType);
-      }
+      },
     },
     {
       text: "Delete",
       backgroundColor: "red",
       onPress: () => {
         onDeleteHandler(itemType);
-      }
-    }
+      },
+    },
   ];
 
   return (
     <Swipeout right={swipeBtns} autoClose={true} backgroundColor="transparent">
       <TouchableHighlight
         underlayColor="rgba(192,192,192,1)"
-        style={styles.SwipeableItem}
+        style={styles.item}
       >
         {ingredient ? (
           <Text>{`\u2022 ${ingredient.name} ${ingredient.qty}`}</Text>
@@ -41,9 +41,10 @@ export default function SwipeableItem(props) {
 }
 
 const styles = StyleSheet.create({
-  SwipeableItem: {
+  item: {
     borderBottomColor: "lightgrey",
     borderBottomWidth: 1,
-    marginVertical: 8
-  }
+    paddingVertical: 10,
+    flex: 1,
+  },
 });
