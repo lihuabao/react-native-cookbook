@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest",
-    "watch": "jest --watch"
+    "test-watch": "jest --watch"
   },
   "jest": {
     "preset": "jest-expo",
@@ -22,6 +22,7 @@
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/native": "^5.1.4",
     "@react-navigation/stack": "^5.2.9",
+    "@types/jest": "^25.2.1",
     "expo": "~36.0.0",
     "path-browserify": "^1.0.1",
     "react": "~16.9.0",
