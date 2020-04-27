@@ -95,7 +95,7 @@ export default function RecipeCreateView(props) {
               </View>
             </View>
           </View>
-          <View style={styles.inputWrap}>
+          <View style={styles.listWrap}>
             <Text style={styles.inputTitle}>Ingredients:</Text>
             {ingredientList.map(ingredient => (
               <SwipeableItem
@@ -104,33 +104,35 @@ export default function RecipeCreateView(props) {
                 onDeleteHandler={deleteIngredient}
               />
             ))}
-            <View style={styles.row}>
-              <TextInput
-                value={ingredient}
-                style={styles.inlineInput}
-                onChangeText={text => setIngredient(text)}
-                ref={ingredientRef}
-              />
-              <Text>Qty:</Text>
-              <TextInput
-                value={amount}
-                style={styles.inlineInput}
-                onChangeText={text => setAmount(text)}
-              />
-            </View>
-            <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
-              <Text>Add an ingredient</Text>
-            </TouchableOpacity>
           </View>
-          <View style={styles.inputWrap}>
+          <View style={styles.row}>
+            <TextInput
+              value={ingredient}
+              style={styles.inlineInput}
+              onChangeText={text => setIngredient(text)}
+              ref={ingredientRef}
+            />
+            <Text>Qty:</Text>
+            <TextInput
+              value={amount}
+              style={styles.inlineInput}
+              onChangeText={text => setAmount(text)}
+            />
+          </View>
+          <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
+            <Text>Add an ingredient</Text>
+          </TouchableOpacity>
+          <View style={styles.listWrap}>
             <Text style={styles.inputTitle}>Steps:</Text>
             {stepList.map((step, index) => (
               <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
             ))}
+          </View>
+          <View>
             <TextInput
               multiline
               value={step}
-              style={[styles.input, { height: Math.max(35, multilineHeight) }]}
+              style={[styles.input, { height: Math.max(20, multilineHeight) }]}
               onChangeText={text => setStep(text)}
               onContentSizeChange={event => {
                 setMultiplineHeight(event.nativeEvent.contentSize.height);
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
   container: {
     margin: 30
   },
-  inputWrap: {
+  listWrap: {
     marginVertical: 20
   },
   row: {
@@ -177,8 +179,6 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   input: {
-    justifyContent: "flex-end",
-    height: 30,
     borderColor: "black",
     borderBottomWidth: 1
   },
