@@ -13,15 +13,15 @@ export default function SwipeableItem(props) {
       backgroundColor: "green",
       onPress: () => {
         onEditHandler(itemType);
-      },
+      }
     },
     {
       text: "Delete",
       backgroundColor: "red",
       onPress: () => {
         onDeleteHandler(itemType);
-      },
-    },
+      }
+    }
   ];
 
   return (
@@ -44,5 +44,6 @@ const styles = StyleSheet.create({
   SwipeableItem: {
     borderBottomColor: "lightgrey",
     borderBottomWidth: 1,
-  },
+    marginVertical: 8
+  }
 });
