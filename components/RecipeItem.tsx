@@ -12,7 +12,11 @@ import images from "../assets/images";
 export default function RecipeItem(props) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={props.onPress}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={props.onPress}
+        testID="recipeItem"
+      >
         <Image
           style={styles.img}
           resizeMode="cover"

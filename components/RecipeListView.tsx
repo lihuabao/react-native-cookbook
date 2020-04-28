@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import RecipeItem from "./RecipeItem";
 import { RecipeContext } from "../context/recipeContext";
