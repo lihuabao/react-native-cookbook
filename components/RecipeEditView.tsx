@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
-import { lettersOnly, numbersOnly } from "../helpers.js";
+import { lettersOnly, numbersOnly } from "../helpers";
 import SwipeableItem from "./SwipeableItem";
 import EditModal from "./EditModal";
 
@@ -25,7 +25,7 @@ export default function RecipeEditView(props) {
   );
   const [stepList, setStepList] = useState(currentRecipe.steps);
   const [modalVisible, setModalVisible] = useState(false);
-  const [itemBeingEdited, setItemBeingEdited] = useState({});
+  const [itemBeingEdited, setItemBeingEdited] = useState();
   const [itemIndex, setItemIndex] = useState();
   const [itemType, setItemType] = useState("");
   const [ingredient, setIngredient] = useState("");

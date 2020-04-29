@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import RecipeListView from "./components/RecipeListView";
@@ -24,19 +23,3 @@ export default function App() {
     </RecipeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 30,
-  },
-  button: {
-    alignItems: "center",
-    alignSelf: "flex-end",
-    padding: 15,
-    width: 60,
-    height: 60,
-  },
-});

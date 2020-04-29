@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
-import { lettersOnly, numbersOnly } from "../helpers.js";
+import { lettersOnly, numbersOnly } from "../helpers";
 import SwipeableItem from "./SwipeableItem";
 
 export default function RecipeCreateView(props) {
