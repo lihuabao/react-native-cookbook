@@ -25,6 +25,7 @@ export default function RecipeListView({ navigation }) {
         numColumns={2}
         data={recipes}
         keyExtractor={(recipe: Recipe) => recipe.id}
+        testID="recipeItemList"
         renderItem={({ item }) => {
           return (
             <RecipeItem

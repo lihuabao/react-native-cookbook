@@ -15,7 +15,7 @@ export default function RecipeItem(props) {
       <TouchableOpacity
         style={styles.button}
         onPress={props.onPress}
-        testID="recipeItem"
+        testID="recipeItemBtn"
       >
         <Image
           style={styles.img}
