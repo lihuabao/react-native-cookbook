@@ -7,12 +7,17 @@ jest.mock("@fortawesome/react-native-fontawesome", () => ({
   FontAwesomeIcon: "",
 }));
 
-it("should render", () => {
+let recipes, navigation;
+
+beforeAll(() => {
   const setOptions = jest.fn();
-  const navigation = { setOptions };
-  const recipes = [{ name: "Pizza" }];
+  navigation = { setOptions };
+  recipes = [{ name: "Pizza" }];
+});
+
+it("should render", () => {
   const { getByTestId } = render(
-    <RecipeContext.Provider value={recipes}>
+    <RecipeContext.Provider value={{ recipes }}>
       <RecipeListView navigation={navigation} />
     </RecipeContext.Provider>
   );
@@ -20,4 +25,13 @@ it("should render", () => {
   expect(getByTestId("recipeItemList")).toBeDefined();
 });
 
-it("should show recipes from context", () => {});
+it("should show recipes from context", () => {
+  const { getByTestId, getByText } = render(
+    <RecipeContext.Provider value={{ recipes }}>
+      <RecipeListView navigation={navigation} />
+    </RecipeContext.Provider>
+  );
+
+  expect(getByTestId("recipeItemList").props.data).toBe(recipes);
+  expect(getByText("Pizza")).toBeDefined();
+});
