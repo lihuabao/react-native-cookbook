@@ -33,6 +33,7 @@
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-svg": "9.13.3",
+    "react-native-swipe-list-view": "^3.0.0",
     "react-native-swipeout": "^2.3.6",
     "react-native-web": "~0.11.7"
   },
@@ -42,9 +43,9 @@
     "@types/react-native": "~0.60.23",
     "babel-preset-expo": "~8.0.0",
     "jest-expo": "^37.0.0",
+    "react-native-testing-library": "^1.13.2",
     "react-test-renderer": "^16.13.1",
-    "typescript": "~3.6.3",
-    "react-native-testing-library": "^1.13.2"
+    "typescript": "~3.6.3"
   },
   "private": true
 }

@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  TouchableHighlight,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers";
+import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeableItem from "./SwipeableItem";
-import { SwipeListView, SwipeRow } from "react-native-swipe-list-view";
 
 export default function RecipeCreateView(props) {
   const { dispatch } = useContext(RecipeContext);
@@ -72,36 +71,6 @@ export default function RecipeCreateView(props) {
     setStepList(updatedList);
   };
 
-  const renderItem = (data) => (
-    <TouchableHighlight
-      onPress={() => console.log("You touched me")}
-      style={styles.rowFront}
-      underlayColor={"#AAA"}
-    >
-      <View>
-        <Text>I am {data.item.text} in a SwipeListView</Text>
-      </View>
-    </TouchableHighlight>
-  );
-
-  const renderHiddenItem = (data, rowMap) => (
-    <View style={styles.rowBack}>
-      <Text>Left</Text>
-      <TouchableOpacity
-        style={[styles.backRightBtn, styles.backRightBtnLeft]}
-        onPress={() => closeRow(rowMap, data.item.key)}
-      >
-        <Text style={styles.backTextWhite}>Close</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.backRightBtn, styles.backRightBtnRight]}
-        onPress={() => deleteRow(rowMap, data.item.key)}
-      >
-        <Text style={styles.backTextWhite}>Delete</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled={true}>
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -133,15 +102,16 @@ export default function RecipeCreateView(props) {
             </View>
           </View>
           <Text style={styles.inputTitle}>Ingredients:</Text>
-          <SwipeListView style={styles.listWrap}>
-            {ingredientList.map((ingredient) => (
+          <SwipeListView
+            data={ingredientList}
+            renderItem={({ item }) => (
               <SwipeableItem
-                key={ingredient.name}
-                ingredient={ingredient}
+                key={item.name}
+                ingredient={item}
                 onDeleteHandler={deleteIngredient}
               />
-            ))}
-          </SwipeListView>
+            )}
+          />
 
           <View style={styles.row}>
             <TextInput
@@ -160,27 +130,17 @@ export default function RecipeCreateView(props) {
           <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
             <Text>Add an ingredient</Text>
           </TouchableOpacity>
-
-          {/* <SwipeListView style={styles.listWrap}>
-            {stepList.map((step, index) => (
-              <SwipeableItem
-                key={index}
-                index={index}
-                step={step}
-                onDeleteHandler={deleteStep}
-              />
-            ))}
-          </SwipeListView> */}
           <Text style={styles.inputTitle}>Steps:</Text>
           <SwipeListView
             data={stepList}
-            renderItem={renderItem}
-            renderHiddenItem={renderHiddenItem}
-            leftOpenValue={75}
-            rightOpenValue={-150}
-            previewRowKey={"0"}
-            previewOpenValue={-40}
-            previewOpenDelay={3000}
+            renderItem={({ item, index }) => (
+              <SwipeableItem
+                key={index}
+                index={index}
+                step={item}
+                onDeleteHandler={deleteStep}
+              />
+            )}
           />
           <TextInput
             multiline
