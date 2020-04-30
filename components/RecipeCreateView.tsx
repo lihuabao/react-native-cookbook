@@ -7,10 +7,12 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableHighlight,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers";
 import SwipeableItem from "./SwipeableItem";
+import { SwipeListView, SwipeRow } from "react-native-swipe-list-view";
 
 export default function RecipeCreateView(props) {
   const { dispatch } = useContext(RecipeContext);
@@ -65,6 +67,41 @@ export default function RecipeCreateView(props) {
     setIngredientList(updatedList);
   };
 
+  const deleteStep = (step) => {
+    const updatedList = stepList.filter((s) => s !== step);
+    setStepList(updatedList);
+  };
+
+  const renderItem = (data) => (
+    <TouchableHighlight
+      onPress={() => console.log("You touched me")}
+      style={styles.rowFront}
+      underlayColor={"#AAA"}
+    >
+      <View>
+        <Text>I am {data.item.text} in a SwipeListView</Text>
+      </View>
+    </TouchableHighlight>
+  );
+
+  const renderHiddenItem = (data, rowMap) => (
+    <View style={styles.rowBack}>
+      <Text>Left</Text>
+      <TouchableOpacity
+        style={[styles.backRightBtn, styles.backRightBtnLeft]}
+        onPress={() => closeRow(rowMap, data.item.key)}
+      >
+        <Text style={styles.backTextWhite}>Close</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.backRightBtn, styles.backRightBtnRight]}
+        onPress={() => deleteRow(rowMap, data.item.key)}
+      >
+        <Text style={styles.backTextWhite}>Delete</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled={true}>
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -95,8 +132,8 @@ export default function RecipeCreateView(props) {
               </View>
             </View>
           </View>
-          <View style={styles.listWrap}>
-            <Text style={styles.inputTitle}>Ingredients:</Text>
+          <Text style={styles.inputTitle}>Ingredients:</Text>
+          <SwipeListView style={styles.listWrap}>
             {ingredientList.map((ingredient) => (
               <SwipeableItem
                 key={ingredient.name}
@@ -104,7 +141,7 @@ export default function RecipeCreateView(props) {
                 onDeleteHandler={deleteIngredient}
               />
             ))}
-          </View>
+          </SwipeListView>
 
           <View style={styles.row}>
             <TextInput
@@ -124,12 +161,27 @@ export default function RecipeCreateView(props) {
             <Text>Add an ingredient</Text>
           </TouchableOpacity>
 
-          <View style={styles.listWrap}>
-            <Text style={styles.inputTitle}>Steps:</Text>
+          {/* <SwipeListView style={styles.listWrap}>
             {stepList.map((step, index) => (
-              <Text key={index.toString()}>{`${index + 1}. ${step} \n`}</Text>
+              <SwipeableItem
+                key={index}
+                index={index}
+                step={step}
+                onDeleteHandler={deleteStep}
+              />
             ))}
-          </View>
+          </SwipeListView> */}
+          <Text style={styles.inputTitle}>Steps:</Text>
+          <SwipeListView
+            data={stepList}
+            renderItem={renderItem}
+            renderHiddenItem={renderHiddenItem}
+            leftOpenValue={75}
+            rightOpenValue={-150}
+            previewRowKey={"0"}
+            previewOpenValue={-40}
+            previewOpenDelay={3000}
+          />
           <TextInput
             multiline
             value={step}
@@ -205,5 +257,45 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
     marginBottom: 50,
+  },
+  backTextWhite: {
+    color: "#FFF",
+  },
+  rowFront: {
+    alignItems: "center",
+    backgroundColor: "#CCC",
+    justifyContent: "center",
+    height: 50,
+  },
+  rowBack: {
+    alignItems: "center",
+    backgroundColor: "#DDD",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 15,
+  },
+  backRightBtn: {
+    alignItems: "center",
+    bottom: 0,
+    justifyContent: "center",
+    position: "absolute",
+    top: 0,
+    width: 75,
+  },
+  backRightBtnLeft: {
+    backgroundColor: "blue",
+    right: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: "red",
+    right: 0,
+  },
+  item: {
+    borderBottomColor: "lightgrey",
+    borderBottomWidth: 1,
+    paddingVertical: 10,
+    flex: 1,
+    backgroundColor: "green",
   },
 });
