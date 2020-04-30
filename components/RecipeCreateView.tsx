@@ -12,6 +12,7 @@ import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers";
 import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeableItem from "./SwipeableItem";
+import EditModal from "./EditModal";
 
 export default function RecipeCreateView(props) {
   const { dispatch } = useContext(RecipeContext);
@@ -24,6 +25,7 @@ export default function RecipeCreateView(props) {
   const [step, setStep] = useState("");
   const [stepList, setStepList] = useState([]);
   const [multilineHeight, setMultiplineHeight] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {}, [ingredientList, stepList]);
 
@@ -113,7 +115,7 @@ export default function RecipeCreateView(props) {
             )}
           />
 
-          <View style={styles.row}>
+          <View style={[styles.row, { marginTop: 10 }]}>
             <TextInput
               value={ingredient}
               style={styles.inlineInput}
@@ -145,7 +147,10 @@ export default function RecipeCreateView(props) {
           <TextInput
             multiline
             value={step}
-            style={[styles.input, { height: Math.max(20, multilineHeight) }]}
+            style={[
+              styles.input,
+              { height: Math.max(20, multilineHeight), marginTop: 10 },
+            ]}
             onChangeText={(text) => setStep(text)}
             onContentSizeChange={(event) => {
               setMultiplineHeight(event.nativeEvent.contentSize.height);
@@ -158,6 +163,13 @@ export default function RecipeCreateView(props) {
           <TouchableOpacity style={styles.saveButton} onPress={onSaveRecipe}>
             <Text>Save</Text>
           </TouchableOpacity>
+          {/* <EditModal
+            isVisible={modalVisible}
+            onToggleModal={onToggleModal}
+            itemToBeEdited={itemBeingEdited}
+            onSaveHandler={updateItem}
+            itemType={itemType}
+          /> */}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

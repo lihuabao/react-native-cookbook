@@ -64,12 +64,13 @@ const styles = StyleSheet.create({
     color: "#FFF",
   },
   rowFront: {
-    alignItems: "center",
-    backgroundColor: "#CCC",
-    borderBottomColor: "black",
+    alignItems: "flex-start",
+    backgroundColor: "papayawhip",
+    borderBottomColor: "tan",
     borderBottomWidth: 1,
     justifyContent: "center",
-    height: 50,
+    height: 30,
+    padding: 8,
   },
   rowBack: {
     alignItems: "center",
@@ -88,11 +89,11 @@ const styles = StyleSheet.create({
     width: 75,
   },
   backRightBtnLeft: {
-    backgroundColor: "blue",
+    backgroundColor: "dodgerblue",
     right: 75,
   },
   backRightBtnRight: {
-    backgroundColor: "red",
+    backgroundColor: "orangered",
     right: 0,
   },
 });
