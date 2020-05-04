@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers";
-import { SwipeListView } from "react-native-swipe-list-view";
 import SwipeableItem from "./SwipeableItem";
 import EditModal from "./EditModal";
 
@@ -75,7 +74,7 @@ export default function RecipeCreateView(props) {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled={true}>
-      <ScrollView keyboardShouldPersistTaps="handled">
+      <ScrollView keyboardShouldPersistTaps="handled" nestedScrollEnabled>
         <View style={styles.container}>
           <View style={styles.inputWrap}>
             <Text style={styles.inputTitle}>Name:</Text>
@@ -104,16 +103,16 @@ export default function RecipeCreateView(props) {
             </View>
           </View>
           <Text style={styles.inputTitle}>Ingredients:</Text>
-          <SwipeListView
-            data={ingredientList}
-            renderItem={({ item }) => (
+
+          <View style={styles.listWrap}>
+            {ingredientList.map((i) => (
               <SwipeableItem
-                key={item.name}
-                ingredient={item}
+                key={i.name}
+                ingredient={i}
                 onDeleteHandler={deleteIngredient}
               />
-            )}
-          />
+            ))}
+          </View>
 
           <View style={[styles.row, { marginTop: 10 }]}>
             <TextInput
@@ -133,17 +132,18 @@ export default function RecipeCreateView(props) {
             <Text>Add an ingredient</Text>
           </TouchableOpacity>
           <Text style={styles.inputTitle}>Steps:</Text>
-          <SwipeListView
-            data={stepList}
-            renderItem={({ item, index }) => (
+
+          <View style={styles.listWrap}>
+            {stepList.map((s, index) => (
               <SwipeableItem
                 key={index}
                 index={index}
-                step={item}
+                step={s}
                 onDeleteHandler={deleteStep}
               />
-            )}
-          />
+            ))}
+          </View>
+
           <TextInput
             multiline
             value={step}
@@ -229,45 +229,5 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
     marginBottom: 50,
-  },
-  backTextWhite: {
-    color: "#FFF",
-  },
-  rowFront: {
-    alignItems: "center",
-    backgroundColor: "#CCC",
-    justifyContent: "center",
-    height: 50,
-  },
-  rowBack: {
-    alignItems: "center",
-    backgroundColor: "#DDD",
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingLeft: 15,
-  },
-  backRightBtn: {
-    alignItems: "center",
-    bottom: 0,
-    justifyContent: "center",
-    position: "absolute",
-    top: 0,
-    width: 75,
-  },
-  backRightBtnLeft: {
-    backgroundColor: "blue",
-    right: 75,
-  },
-  backRightBtnRight: {
-    backgroundColor: "red",
-    right: 0,
-  },
-  item: {
-    borderBottomColor: "lightgrey",
-    borderBottomWidth: 1,
-    paddingVertical: 10,
-    flex: 1,
-    backgroundColor: "green",
   },
 });

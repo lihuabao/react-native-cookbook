@@ -14,6 +14,7 @@ import EditModal from "./EditModal";
 
 export default function RecipeEditView(props) {
   const { recipes, dispatch } = useContext(RecipeContext);
+
   const id = props.route.params.item.id;
   const currentRecipe = recipes.find((r) => r.id === id);
 
@@ -169,13 +170,6 @@ export default function RecipeEditView(props) {
         <TouchableOpacity style={styles.addButton} onPress={addIngredient}>
           <Text>Add an ingredient</Text>
         </TouchableOpacity>
-        <EditModal
-          isVisible={modalVisible}
-          onToggleModal={onToggleModal}
-          itemToBeEdited={itemBeingEdited}
-          onSaveHandler={updateItem}
-          itemType={itemType}
-        />
         <View style={styles.inputWrap}>
           <Text>Steps:</Text>
           {stepList.map((step, index) => (
@@ -206,6 +200,13 @@ export default function RecipeEditView(props) {
         <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
           <Text>Save</Text>
         </TouchableOpacity>
+        <EditModal
+          isVisible={modalVisible}
+          onToggleModal={onToggleModal}
+          itemToBeEdited={itemBeingEdited}
+          onSaveHandler={updateItem}
+          itemType={itemType}
+        />
       </View>
     </ScrollView>
   );
