@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { RecipeContext } from "../context/recipeContext";
 import { lettersOnly, numbersOnly } from "../helpers";
@@ -165,14 +166,18 @@ export default function RecipeCreateEditView(props) {
         </View>
         <View style={styles.inputWrap}>
           <Text>Ingredients:</Text>
-          {ingredientList.map((ingredient) => (
-            <SwipeableItem
-              key={ingredient.name}
-              ingredient={ingredient}
-              onEditHandler={editIngredient}
-              onDeleteHandler={deleteIngredient}
-            />
-          ))}
+          <FlatList
+            data={ingredientList}
+            keyExtractor={(item) => item.name}
+            renderItem={({ item }) => (
+              <SwipeableItem
+                key={item.name}
+                ingredient={item}
+                onEditHandler={editIngredient}
+                onDeleteHandler={deleteIngredient}
+              />
+            )}
+          />
         </View>
         <View style={styles.row}>
           <TextInput
@@ -193,15 +198,19 @@ export default function RecipeCreateEditView(props) {
         </TouchableOpacity>
         <View style={styles.inputWrap}>
           <Text>Steps:</Text>
-          {stepList.map((step, index) => (
-            <SwipeableItem
-              key={index}
-              index={index}
-              step={step}
-              onEditHandler={editStep}
-              onDeleteHandler={deleteStep}
-            />
-          ))}
+          <FlatList
+            data={stepList}
+            keyExtractor={(item) => item}
+            renderItem={({ item, index }) => (
+              <SwipeableItem
+                key={item}
+                index={index}
+                step={item}
+                onEditHandler={editStep}
+                onDeleteHandler={deleteStep}
+              />
+            )}
+          />
         </View>
         <View>
           <TextInput
