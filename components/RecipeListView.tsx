@@ -27,9 +27,21 @@ export default function RecipeListView({ navigation }) {
     ),
   });
 
+  function fuzzyMatch(str, input) {
+    input = input.split("").reduce(function(a, b) {
+      return a + "[^" + b + "]*" + b;
+    });
+    return new RegExp(input).test(str);
+  }
+
   const filterSearchResult = () => {
     if (searchInput !== "") {
-      const result = recipes.filter((r) => r.name === searchInput);
+      const result = recipes.filter(
+        (r) =>
+          r.name === searchInput ||
+          r.name.includes(searchInput) ||
+          fuzzyMatch(r.name, searchInput)
+      );
       setVisibleRecipes(result);
     } else {
       setVisibleRecipes(recipes);
@@ -50,6 +62,7 @@ export default function RecipeListView({ navigation }) {
         </TouchableOpacity>
         <TextInput
           placeholder="search for recipe"
+          autoCorrect={false}
           style={styles.searchInput}
           value={searchInput}
           onChangeText={(input) => setSearchInput(input)}
