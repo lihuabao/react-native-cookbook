@@ -17,7 +17,9 @@ export default function RecipeListView({ navigation }) {
   const [searchInput, setSearchInput] = useState("");
   const [visibleRecipes, setVisibleRecipes] = useState(recipes);
 
-  useEffect(() => {}, [visibleRecipes]);
+  useEffect(() => {
+    setVisibleRecipes(recipes);
+  }, [recipes]);
 
   navigation.setOptions({
     headerRight: () => (
@@ -31,7 +33,7 @@ export default function RecipeListView({ navigation }) {
   });
 
   function fuzzyMatch(str, input) {
-    input = input.split("").reduce(function(a, b) {
+    input = input.split("").reduce(function (a, b) {
       return a + "[^" + b + "]*" + b;
     });
     return new RegExp(input).test(str);
