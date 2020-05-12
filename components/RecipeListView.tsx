@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   TextInput,
+  Text,
 } from "react-native";
 import RecipeItem from "./RecipeItem";
 import { RecipeContext } from "../context/recipeContext";
@@ -69,25 +70,31 @@ export default function RecipeListView({ navigation }) {
           onSubmitEditing={filterSearchResult}
         />
       </View>
-      <FlatList
-        numColumns={2}
-        data={visibleRecipes}
-        keyExtractor={(recipe: Recipe) => recipe.id}
-        testID="recipeItemList"
-        renderItem={({ item }) => {
-          return (
-            <RecipeItem
-              name={item.name}
-              minutes={item.minutes}
-              image={item.image}
-              title="Go to Detail Screen"
-              onPress={() => {
-                navigation.navigate("Recipe Details", { item });
-              }}
-            />
-          );
-        }}
-      />
+      {visibleRecipes.length !== 0 ? (
+        <FlatList
+          numColumns={2}
+          data={visibleRecipes}
+          keyExtractor={(recipe: Recipe) => recipe.id}
+          testID="recipeItemList"
+          renderItem={({ item }) => {
+            return (
+              <RecipeItem
+                name={item.name}
+                minutes={item.minutes}
+                image={item.image}
+                title="Go to Detail Screen"
+                onPress={() => {
+                  navigation.navigate("Recipe Details", { item });
+                }}
+              />
+            );
+          }}
+        />
+      ) : (
+        <Text style={{ alignSelf: "center", fontSize: 20, marginTop: 40 }}>
+          Sorry, there is no match for your search.
+        </Text>
+      )}
     </View>
   );
 }
@@ -110,6 +117,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     width: 60,
     height: 60,
+    padding: 15,
   },
 });
 
