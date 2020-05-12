@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -16,6 +16,8 @@ export default function RecipeListView({ navigation }) {
   const { recipes } = useContext(RecipeContext);
   const [searchInput, setSearchInput] = useState("");
   const [visibleRecipes, setVisibleRecipes] = useState(recipes);
+
+  useEffect(() => {}, [visibleRecipes]);
 
   navigation.setOptions({
     headerRight: () => (
