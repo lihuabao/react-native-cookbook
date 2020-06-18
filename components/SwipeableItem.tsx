@@ -53,16 +53,6 @@ export default function SwipeableItem(props) {
 }
 
 const styles = StyleSheet.create({
-  item: {
-    borderBottomColor: "lightgrey",
-    borderBottomWidth: 1,
-    paddingVertical: 10,
-    flex: 1,
-  },
-
-  backTextWhite: {
-    color: "#FFF",
-  },
   rowFront: {
     alignItems: "flex-start",
     backgroundColor: "papayawhip",
@@ -70,7 +60,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     justifyContent: "center",
     height: 30,
-    padding: 8,
+    padding: 4,
   },
   rowBack: {
     alignItems: "center",
@@ -79,6 +69,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingLeft: 15,
+  },
+  backTextWhite: {
+    color: "#FFF",
   },
   backRightBtn: {
     alignItems: "center",
