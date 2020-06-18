@@ -106,7 +106,12 @@ export default function RecipeCreateEditView(props) {
     const setList = itemType === "ingredient" ? setIngredientList : setStepList;
     setList(updatedList);
   };
-  const addNewRecipe = () => {
+
+  const addNewRecipe = async () => {
+    await fetch("http://localhost:1337/recipes", {
+      method: "POST",
+      body: JSON.stringify({ name: name }),
+    });
     dispatch({
       type: "add",
       obj: {
@@ -117,6 +122,7 @@ export default function RecipeCreateEditView(props) {
       },
     });
   };
+
   const editRecipe = () => {
     dispatch({
       type: "update",
@@ -142,6 +148,7 @@ export default function RecipeCreateEditView(props) {
         <View style={styles.inputWrap}>
           <Text>Name:</Text>
           <TextInput
+            testID="nameInput"
             value={name}
             style={styles.input}
             onChangeText={(input) => setName(lettersOnly(input))}
@@ -227,7 +234,11 @@ export default function RecipeCreateEditView(props) {
         <TouchableOpacity style={styles.addButton} onPress={addStep}>
           <Text>Add a step</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={onSaveRecipe}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={onSaveRecipe}
+          testID="saveBtn"
+        >
           <Text>Save</Text>
         </TouchableOpacity>
         <EditModal

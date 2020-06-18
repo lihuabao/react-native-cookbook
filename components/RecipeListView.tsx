@@ -18,7 +18,14 @@ export default function RecipeListView({ navigation }) {
   const [visibleRecipes, setVisibleRecipes] = useState(recipes);
 
   useEffect(() => {
-    setVisibleRecipes(recipes);
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:1337/recipes");
+        const recipes = await res.json();
+        setVisibleRecipes(recipes);
+      } catch (error) {}
+    };
+    fetchData();
   }, [recipes]);
 
   navigation.setOptions({
